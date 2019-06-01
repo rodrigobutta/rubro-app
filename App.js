@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StatusBar, AsyncStorage } from "react-native";
+import { View, StatusBar, AsyncStorage, Text } from "react-native";
 
 import firebase from "react-native-firebase";
 import Constants from "./src/utils/Constants";
@@ -20,11 +20,11 @@ import axios from 'axios';
 // import join from 'url-join';
 import {Provider} from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
-import { withRkTheme } from 'react-native-ui-kitten';
+// import { withRkTheme } from 'react-native-ui-kitten';
 
-import { AppRoutes } from './src/config/navigation/routesBuilder';
-import * as Screens from './src/screens';
-import { bootstrap } from './src/config/bootstrap';
+// import { AppRoutes } from './src/config/navigation/routesBuilder';
+// import * as Screens from './src/screens';
+// import { bootstrap } from './src/config/bootstrap';
 // import track from './config/analytics';
 import { data } from './src/data';
 import {store, persistor} from './src/redux/store';
@@ -40,28 +40,28 @@ import LoginViewContainer from './src/modules/auth/LoginViewContainer';
 XMLHttpRequest = GLOBAL.originalXMLHttpRequest;  // con este salta error rojo a cada vez, pero veo en NETWORK XHR
 // XMLHttpRequest = GLOBAL.XMLHttpRequest  // con este no tengo error pero lo veo en FETCH del CONSOLE
 
-bootstrap();
+// bootstrap();
 data.populateData();
 
 
 
 const MainnnApp = createStackNavigator({
   First: {
-    screen: Screens.SplashScreen,
+    screen: LoginViewContainer// Screens.SplashScreen,
   },
-  Home: {
-    screen: createDrawerNavigator(
-      {
-        ...AppRoutes,
-      },
-      {
-        contentComponent: (props) => {
-          const SideMenu = withRkTheme(Screens.SideMenu);
-          return <SideMenu {...props} />;
-        },
-      },
-    ),
-  },
+  // Home: {
+  //   screen: createDrawerNavigator(
+  //     {
+  //       ...AppRoutes,
+  //     },
+  //     {
+  //       contentComponent: (props) => {
+  //         const SideMenu = withRkTheme(Screens.SideMenu);
+  //         return <SideMenu {...props} />;
+  //       },
+  //     },
+  //   ),
+  // },
   Counter: {
     screen: CounterViewContainer
   },
@@ -118,62 +118,65 @@ export default class App extends Component {
     this.loadAssets();
 
 
-    // GoogleSignin.configure();
+    GoogleSignin.configure();
 
-    // firebase.auth().onAuthStateChanged(user => {
-    //   if (user) {
-    //     if (global.fullNameTemp) {
-    //       user
-    //         .updateProfile({
-    //           displayName: global.fullNameTemp
-    //         })
-    //         .then(() => {
-    //           // user is verified and logged in
-    //           console.log("App.js ====================================");
-    //           console.log(user);
-    //           console.log("====================================");
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        if (global.fullNameTemp) {
+          user
+            .updateProfile({
+              displayName: global.fullNameTemp
+            })
+            .then(() => {
+              // user is verified and logged in
+              console.log("App.js ====================================");
+              console.log(user);
+              console.log("====================================");
 
-    //           global.fullNameTemp = null;
-    //           global.currentUser = user;
-    //           AsyncStorage.setItem(
-    //             Constants.keyCurrentUser,
-    //             JSON.stringify(user)
-    //           );
-    //           this.setState({ isLogin: true });
-    //         });
-    //     } else {
-    //       // user is verified and logged in
-    //       console.log("App.js ====================================");
-    //       console.log(user);
-    //       console.log("====================================");
-    //       global.currentUser = user;
-    //       AsyncStorage.setItem(Constants.keyCurrentUser, JSON.stringify(user));
-    //       this.setState({ isLogin: true });
-    //     }
-    //   } else {
-    //     AsyncStorage.removeItem(Constants.keyCurrentUser);
-    //     this.setState({ isLogin: false });
-    //   }
-    // });
+              global.fullNameTemp = null;
+              global.currentUser = user;
+              AsyncStorage.setItem(
+                Constants.keyCurrentUser,
+                JSON.stringify(user)
+              );
+              this.setState({ isLogin: true });
+            });
+        } else {
+          // user is verified and logged in
+          console.log("App.js ====================================");
+          console.log(user);
+          console.log("====================================");
+          global.currentUser = user;
+          AsyncStorage.setItem(Constants.keyCurrentUser, JSON.stringify(user));
+          this.setState({ isLogin: true });
+        }
+      } else {
+        AsyncStorage.removeItem(Constants.keyCurrentUser);
+        this.setState({ isLogin: false });
+      }
+    });
 
-    // setTimeout(() => {
-    //   if (global.currentUser === null) {
-    //     this.setState({
-    //       isLogin: false,
-    //       isStoreSet: false
-    //     });
-    //   } else if (global.currentStore === null) {
-    //     this.setState({
-    //       isLogin: true,
-    //       isStoreSet: false
-    //     });
-    //   } else {
-    //     this.setState({
-    //       isLogin: true,
-    //       isStoreSet: true
-    //     });
-    //   }
-    // }, 1000); // Time to display Splash Screen
+    setTimeout(() => {
+      if (global.currentUser === null) {
+        this.setState({
+          isLogin: false,
+          isStoreSet: false,
+          isLoaded: true
+        });
+      } else if (global.currentStore === null) {
+        this.setState({
+          isLogin: true,
+          isStoreSet: false,
+          isLoaded: true
+        });
+      } else {
+        this.setState({
+          isLogin: true,
+          isStoreSet: true,
+          isLoaded: true
+        });
+      }
+    }, 500); // Time to display Splash Screen
 
 
   }
@@ -197,38 +200,38 @@ export default class App extends Component {
   };
 
   loadAssets = async () => {
-    await Font.loadAsync({
-      fontawesome: require('./assets/fonts/fontawesome.ttf'),
-      icomoon: require('./assets/fonts/icomoon.ttf'),
-      'Righteous-Regular': require('./assets/fonts/Righteous-Regular.ttf'),
-      'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
-      'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
-      'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
-      'Roboto-Light': require('./assets/fonts/Roboto-Light.ttf'),
-    });
-    this.setState({ isLoaded: true });
+    // await Font.loadAsync({
+    //   fontawesome: require('./assets/fonts/fontawesome.ttf'),
+    //   icomoon: require('./assets/fonts/icomoon.ttf'),
+    //   'Righteous-Regular': require('./assets/fonts/Righteous-Regular.ttf'),
+    //   'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
+    //   'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
+    //   'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
+    //   'Roboto-Light': require('./assets/fonts/Roboto-Light.ttf'),
+    // });
+    // this.setState({ isLoaded: true });
   };
 
 
   
-  renderAuth = () => {
+  // renderAuth = () => {
     
     
-    if (this.state.isLogin == null) {
-      return <View />;
-    } else if (this.state.isLogin) {
-      // return <Home />;
-      return <MainnnApp onNavigationStateChange={this.onNavigationStateChange} />;
-    } else {
-      return <LoginRouter />;
-    }
+  //   if (this.state.isLogin == null) {
+  //     return <View />;
+  //   } else if (this.state.isLogin) {
+  //     return <Home />;
+  //     // return <MainnnApp onNavigationStateChange={this.onNavigationStateChange} />;
+  //   } else {
+  //     return <LoginRouter />;
+  //   }
 
-  }
+  // }
 
 
   renderLoading = () => (
     <View style={{ flex: 1 }}>
-      Cargando...
+      <Text>{'Cargando...'}</Text>
     </View>
   );
 
@@ -238,10 +241,8 @@ export default class App extends Component {
       <PersistGate loading={null} persistor={persistor}>
         <View style={{ flex: 1 }}>
 
-          {this.renderAuth}
-
-
-          
+          {this.state.isLogin ? <Home /> : <LoginRouter />}
+    
         
         
         </View>
@@ -249,9 +250,7 @@ export default class App extends Component {
     </Provider>
   );
 
-  // render = () => (this.state.isLoaded ? this.renderApp() : this.renderLoading());
-
-  render = () => (this.renderApp());
+  render = () => (this.state.isLoaded ? this.renderApp() : this.renderLoading());
 
 
  
