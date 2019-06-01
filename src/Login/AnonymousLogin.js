@@ -7,10 +7,10 @@ import {
   StyleSheet,
   TouchableOpacity
 } from "react-native";
-import CommonStyles from "../Utils/CommonStyles";
+import CommonStyles from "../utils/CommonStyles";
 import firebase from "react-native-firebase";
 import Spinner from "react-native-loading-spinner-overlay";
-import Constants from "../Utils/Constants";
+import Constants from "../utils/Constants";
 
 export default class AnonymousLogin extends Component {
   constructor(props) {

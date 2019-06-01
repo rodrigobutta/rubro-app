@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet
 } from "react-native";
-import CommonStyles from "../Utils/CommonStyles";
+import CommonStyles from "../utils/CommonStyles";
 import firebase from "react-native-firebase";
 import { GoogleSignin } from "react-native-google-signin";
 import Spinner from "react-native-loading-spinner-overlay";

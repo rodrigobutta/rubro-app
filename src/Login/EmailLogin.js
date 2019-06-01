@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import firebase from "react-native-firebase";
-import CommonStyles from "../Utils/CommonStyles";
+import CommonStyles from "../utils/CommonStyles";
 import Spinner from "react-native-loading-spinner-overlay";
 import { IndicatorViewPager, PagerTitleIndicator } from "rn-viewpager";
 

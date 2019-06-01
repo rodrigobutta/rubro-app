@@ -7,7 +7,7 @@ import {
   Image,
   StyleSheet
 } from "react-native";
-import CommonStyles from "../Utils/CommonStyles";
+import CommonStyles from "../utils/CommonStyles";
 import firebase from "react-native-firebase";
 import { LoginManager } from "react-native-fbsdk";
 import { GoogleSignin } from "react-native-google-signin";

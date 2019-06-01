@@ -8,7 +8,7 @@ import {
   StyleSheet
 } from "react-native";
 
-import CommonStyles from "../Utils/CommonStyles";
+import CommonStyles from "../utils/CommonStyles";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 import Spinner from "react-native-loading-spinner-overlay";
 import firebase from "react-native-firebase";

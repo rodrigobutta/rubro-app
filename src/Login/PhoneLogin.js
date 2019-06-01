@@ -9,7 +9,7 @@ import {
   StyleSheet
 } from "react-native";
 import firebase from "react-native-firebase";
-import CommonStyles from "../Utils/CommonStyles";
+import CommonStyles from "../utils/CommonStyles";
 import Spinner from "react-native-loading-spinner-overlay";
 
 export default class PhoneLogin extends Component {
