@@ -62,82 +62,6 @@ export default class Home extends Component {
     return loginType;
   };
 
-  _renderUserId = () => {
-    const { currentUser } = firebase.auth();
-    if (!currentUser) {
-      return null;
-    }
-
-    return currentUser.uid ? (
-      <Text style={styles.normalText}>User Id: {currentUser.uid}</Text>
-    ) : null;
-  };
-
-
-  _renderUserToken = () => {
-    const { currentUser } = firebase.auth();
-    
-    console.log('tokennnnn')
-
-    console.log(currentUser)
-
-
-    currentUser.getIdToken().then(function(idToken) {  // <------ Check this line
-      // alert(idToken); // It shows the Firebase token now
-
-      console.log(idToken)
-
-      return idToken;
-  });
-
-    
-    
-    return <Text style={styles.normalText}>Token: ****</Text>
-  };
-
-  _renderDisplayName = () => {
-    const { currentUser } = firebase.auth();
-    if (!currentUser) {
-      return null;
-    }
-
-    return currentUser.displayName ? (
-      <Text style={styles.normalText}>
-        Display Name: {currentUser.displayName}
-      </Text>
-    ) : null;
-  };
-
-  _renderEmail = () => {
-    const { currentUser } = firebase.auth();
-    if (!currentUser) {
-      return null;
-    }
-
-    return currentUser.email ? (
-      <Text style={styles.normalText}>Email: {currentUser.email}</Text>
-    ) : null;
-  };
-
-  _renderLoginType = () => {
-    return (
-      <Text style={styles.normalText}>Login Type : {this._loginType()}</Text>
-    );
-  };
-
-  _renderUserImage = () => {
-    const { currentUser } = firebase.auth();
-    if (!currentUser) {
-      return null;
-    }
-
-    return currentUser.photoURL ? (
-      <Image
-        source={{ uri: currentUser.photoURL }}
-        style={{ width: 50, height: 50, marginTop:10 }}
-      />
-    ) : null;
-  };
 
   render() {
     const { currentUser } = firebase.auth();
@@ -152,14 +76,17 @@ export default class Home extends Component {
             style={{ height: 100, width: 100, marginBottom: 10 }}
           />
           <Text style={{ fontSize: 22, marginBottom: 10 }}>
-            Logged in successfully!
+            Logueado!
           </Text>
-          {this._renderUserId()}
-          {this._renderDisplayName()}
-          {this._renderLoginType()}
-          {this._renderEmail()}
-          {this._renderUserImage()}
-          {this._renderUserToken()}
+
+
+
+          {currentUser.photoURL && <Image source={{ uri: currentUser.photoURL }} style={{ width: 50, height: 50, marginTop:10 }} />}
+          
+          <Text style={styles.normalText}>Name: {currentUser.displayName}</Text>
+          <Text style={styles.normalText}>Email: {currentUser.email}</Text>
+          <Text style={styles.normalText}>Login Type : {this._loginType()}</Text>
+          
 
           <TouchableOpacity
             style={[CommonStyles.themeButton, { marginTop: 20 }]}

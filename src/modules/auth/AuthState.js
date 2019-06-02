@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 // Actions
 const SET_TOKEN = 'AuthState/SET_TOKEN';
 const RESET_TOKEN = 'AuthState/RESET_TOKEN';
-const SET_USER_INFO = 'AuthState/SET_USER_INFO';
+const SET_USER = 'AuthState/SET_USER';
 
 
 import axios from 'axios';
@@ -14,6 +14,7 @@ import { API_URL } from '../../config/enviroment';
 
 
 // Action creators
+
 export function setToken($token,$expires) { 
   
   // savePersistedToken($token);
@@ -32,10 +33,10 @@ export function resetToken() {
   return {type: RESET_TOKEN};
 }
 
-export function setUserInfo($info) {
+export function setUser($info) {
   
   return {
-    type: SET_USER_INFO,
+    type: SET_USER,
     payload: {
         info: $info        
     }
@@ -73,7 +74,7 @@ export default function AuthStateReducer(state = INITIAL_STATE, action = {}) {
     case RESET_TOKEN:
       return INITIAL_STATE;
 
-    case SET_USER_INFO:         
+    case SET_USER:         
       return { ...state, 
         user: action.payload.info      
       };

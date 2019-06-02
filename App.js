@@ -16,9 +16,7 @@ import {
 } from 'react-navigation';
 
 
-import axios from 'axios';
-// import join from 'url-join';
-import {Provider} from 'react-redux';
+import {Provider, connect} from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 // import { withRkTheme } from 'react-native-ui-kitten';
 
@@ -32,6 +30,13 @@ import CounterViewContainer from './src/modules/counter/CounterViewContainer';
 import ColorViewContainer from './src/modules/colors/ColorViewContainer';
 import Agenda from './src/modules/agenda/agenda';
 import LoginViewContainer from './src/modules/auth/LoginViewContainer';
+
+
+import axios from 'axios';
+import { API_URL } from './src/config/enviroment';
+
+
+import {setToken, setUser} from './src/modules/auth/AuthState';
 
 
 // XMLHttpRequest = GLOBAL.originalXMLHttpRequest ?
@@ -95,7 +100,9 @@ const MainnnApp = createStackNavigator({
   });
 
 
+  // class App extends Component {
 export default class App extends Component {
+  
   constructor(props) {
     super(props);
 
@@ -112,6 +119,51 @@ export default class App extends Component {
     Utilities.setInitialGlobalValues();
   }
 
+
+  _coreAuth = (user) => {
+
+        
+    // global.currentUser = user;
+    // AsyncStorage.setItem(Constants.keyCurrentUser, JSON.stringify(user));
+
+
+    user.getIdToken().then(function(idToken) {  // <------ Check this line
+      console.log("app-js _coreAuth");
+      console.log(idToken)
+
+      var data = {};
+        data.token = idToken;
+        data.uid = user.uid;
+        data.email = user.email;
+        data.emailVerified = user.emailVerified;
+        data.name = user.displayName;
+        data.phone = user.phoneNumber;
+        data.photourl = user.photoURL;
+        data.provider = user.providerData[0].providerId;
+    
+      axios
+      .post(API_URL + '/auth/firebase/login', data)
+      .then(response => {
+        console.log(response);
+        
+        // this.props.authStateActions.setToken(response.data.access_token, response.data.expires_at);
+        store.dispatch(setToken(response.data.access_token, response.data.expires_at));
+        
+        return true;
+      })
+      .catch(error => console.log(error));
+
+
+    });
+
+  };
+
+  
+
+
+
+
+
   // Life Cycle
   componentWillMount() {
 
@@ -121,62 +173,61 @@ export default class App extends Component {
     GoogleSignin.configure();
 
     firebase.auth().onAuthStateChanged(user => {
+      console.log('onAuthStateChanged', user)
+
       if (user) {
+
         if (global.fullNameTemp) {
+          // *** parece que fuera solo si viene del registro sign up manual
+
           user
-            .updateProfile({
-              displayName: global.fullNameTemp
-            })
-            .then(() => {
-              // user is verified and logged in
-              console.log("App.js ====================================");
-              console.log(user);
-              console.log("====================================");
+          .updateProfile({
+            displayName: global.fullNameTemp
+          })
+          .then(() => {
+            // console.log(user);
 
-              global.fullNameTemp = null;
-              global.currentUser = user;
-              AsyncStorage.setItem(
-                Constants.keyCurrentUser,
-                JSON.stringify(user)
-              );
-              this.setState({ isLogin: true });
-            });
+            global.fullNameTemp = null;
+            
+            this.setState({ isLogin: true });
+            this._coreAuth(user);
+
+          });
+
         } else {
-          // user is verified and logged in
-          console.log("App.js ====================================");
-          console.log(user);
-          console.log("====================================");
-          global.currentUser = user;
-          AsyncStorage.setItem(Constants.keyCurrentUser, JSON.stringify(user));
-          this.setState({ isLogin: true });
-        }
-      } else {
-        AsyncStorage.removeItem(Constants.keyCurrentUser);
-        this.setState({ isLogin: false });
-      }
-    });
+          // console.log(user);
 
-    setTimeout(() => {
-      if (global.currentUser === null) {
-        this.setState({
-          isLogin: false,
-          isStoreSet: false,
-          isLoaded: true
-        });
-      } else if (global.currentStore === null) {
-        this.setState({
-          isLogin: true,
-          isStoreSet: false,
-          isLoaded: true
-        });
+          this.setState({ isLogin: true });
+          this._coreAuth(user);
+
+        }
+
       } else {
-        this.setState({
-          isLogin: true,
-          isStoreSet: true,
-          isLoaded: true
-        });
+
+        // AsyncStorage.removeItem(Constants.keyCurrentUser);
+        this.setState({ isLogin: false });
+
       }
-    }, 500); // Time to display Splash Screen
+
+
+  });
+
+
+
+
+  setTimeout(() => {
+    if (global.currentUser === null) {
+      this.setState({
+        isLogin: false,
+        isLoaded: true
+      });      
+    } else {
+      this.setState({
+        isLogin: true,          
+        isLoaded: true
+      });
+    }
+  }, 500); // Time to display Splash Screen
 
 
   }
@@ -213,22 +264,6 @@ export default class App extends Component {
   };
 
 
-  
-  // renderAuth = () => {
-    
-    
-  //   if (this.state.isLogin == null) {
-  //     return <View />;
-  //   } else if (this.state.isLogin) {
-  //     return <Home />;
-  //     // return <MainnnApp onNavigationStateChange={this.onNavigationStateChange} />;
-  //   } else {
-  //     return <LoginRouter />;
-  //   }
-
-  // }
-
-
   renderLoading = () => (
     <View style={{ flex: 1 }}>
       <Text>{'Cargando...'}</Text>
@@ -252,6 +287,6 @@ export default class App extends Component {
 
   render = () => (this.state.isLoaded ? this.renderApp() : this.renderLoading());
 
-
  
 }
+

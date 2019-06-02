@@ -2,7 +2,7 @@ var { EventEmitter } = require("fbemitter");
 
 module.exports = {
   alertTitle: "Firebase Auth",
-  keyCurrentUser: "currentUser",
+  // keyCurrentUser: "currentUser",
   emitter: new EventEmitter(),
   loginListener: "loginListener",
   logoutListener: "logoutListener",
