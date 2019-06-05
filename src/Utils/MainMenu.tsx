@@ -1,41 +1,31 @@
 import React, { Component } from "react"
 import {
-  StatusBar,
   StyleSheet,
   Text,
   Button,
   View,
   FlatList,
 } from "react-native"
-
+import { connect} from 'react-redux';
 import firebase from "react-native-firebase";
 import { LoginManager } from "react-native-fbsdk";
 import { GoogleSignin } from "react-native-google-signin";
 
-
-
-import Icon from 'react-native-vector-icons/Ionicons'
 import MainMenuProfile from './MainMenuProfile'
 import MainMenuItem from './MainMenuItem'
 
-import { connect} from 'react-redux';
-
-const userData = {
-  profileUrl: 'https://s-media-cache-ak0.pinimg.com/736x/a3/e3/d6/a3e3d67e30105ca1688565e484370ab8--social-networks-harry-potter.jpg',
-  username: 'Roooo',
-  email: 'ewatson@gryffindor.io'
-}
 
 const menuData = [
     {icon: "ios-home", label:"Dashboard", screen:'Dashboard', key:'menu_dashboard'},
     {icon: "ios-person", label:"Perfil", screen: 'Profile', key:'menu_profile'},  
+    {icon: "ios-happy", label:"Test", screen: 'Test', key:'menu_test'},  
   ]
   
 
 
 class MainMenu extends Component {
 
-    
+
   _logout = async () => {
     await LoginManager.logOut();
     await GoogleSignin.signOut();
@@ -50,7 +40,6 @@ class MainMenu extends Component {
 
     const { user } = this.props.auth;
 
-
     return (
       <View style={styles.container}>
         <MainMenuProfile profileUrl={user.photo_url} username={user.name} email={user.email} />
@@ -64,7 +53,6 @@ class MainMenu extends Component {
         />
 
         <Button title={'Cerrar sesión'} onPress={this._logout}/>
-
       
       </View>
     );
@@ -86,10 +74,6 @@ const styles = StyleSheet.create({
     margin:15,
   }
 })
-
-// MainMenu.defaultProps = {};
-// MainMenu.propTypes = {};
-// export default MainMenu;
 
 const mapStateToProps = state => {
   return {

@@ -5,7 +5,6 @@ import {
   StatusBar,
   Button
 } from "react-native";
-
 import {
   createDrawerNavigator,
   createStackNavigator,
@@ -13,14 +12,14 @@ import {
   SafeAreaView,
 } from 'react-navigation';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
+
 import { ButtonWithMargin } from '../commonComponents/ButtonWithMargin';
+import MainMenuContents from "./MainMenu";
 
 import Home from "../Home/Home";
 import Profile from "../Profile/Profile";
 import EditProfile from "../Profile/Edit";
-
-import MainMenuContents from "./MainMenu";
-import MainMenuBurguer from "../utils/MainMenuBurguer";
+import Camera from "../modules/camera/camera";
 
 const SubScreenWrapper = ({
   navigation,
@@ -34,24 +33,10 @@ const SubScreenWrapper = ({
       <ButtonWithMargin onPress={() => navigation.openDrawer()} title="Menú" />
       <ButtonWithMargin onPress={() => navigation.navigate('Dashboard2')} title="Directo Dashboard 2" />
       <ButtonWithMargin onPress={() => navigation.navigate('Index')} title="Volver" />
-
-
     </SafeAreaView>
     <StatusBar barStyle="default" />
   </ScrollView>
 );
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // const DashboardScreen = ({
@@ -73,14 +58,11 @@ const SubScreenWrapper = ({
 // DashboardScreen.navigationOptions = navigationOptionsHeader;
 
 
-
 const Dashboard2Screen = ({
   navigation,
 }: {
   navigation: NavigationScreenProp<NavigationState>;
 }) => <SubScreenWrapper banner={'Dashboard 2 Screen'} navigation={navigation} />;
-
-
 
 
 const ProfileStack = createStackNavigator(
@@ -114,10 +96,6 @@ const DashboardStack = createStackNavigator(
 );
 
 
-
-
-
-
 // export const navigationOptionsHeader=({navigation})=>{
   
 //   return {    
@@ -133,8 +111,6 @@ const DashboardStack = createStackNavigator(
 // }
 
 
-
-
 const MainNavigation = createDrawerNavigator(
   {
     Dashboard: {
@@ -144,6 +120,10 @@ const MainNavigation = createDrawerNavigator(
     Profile: {
       path: '/profile',
       screen: ProfileStack,
+    },
+    Test: {
+      path: '/test',
+      screen: Camera,
     },
   },
 
@@ -166,11 +146,4 @@ const MainNavigation = createDrawerNavigator(
 
 
 
-
-
-
-
-
 export const MainRouter = createAppContainer(MainNavigation);
-
-
