@@ -19,17 +19,40 @@ import { API_URL } from './config/enviroment';
 import {setToken, setUser, resetToken, resetUser} from './modules/auth/AuthState';
 
 
-class MainApp extends React.Component {
-  
+class MainApp extends React.Component {  
   constructor(props) {
     super(props);
 
     this.state = {
-      // isLogin: null,
+      isLogin: null,
       isLoaded: false
     };
 
     StatusBar.setBarStyle("light-content", true); // Set Statusbar Light Content for iOS
+
+    store.subscribe(() => {
+      // When state will be updated(in our case, when items will be fetched), 
+      // we will update local component state and force component to rerender 
+      // with new data.
+      console.log('updateddddddd')
+
+      const state = store.getState(store);
+      const user = state.auth.user; 
+
+      console.log(user);
+      
+      if(user){
+        this.setState({ isLogin: true });
+      }
+      else{
+        this.setState({ isLogin: false });
+      }
+
+      
+
+
+    });
+
 
   }
 
@@ -62,8 +85,6 @@ class MainApp extends React.Component {
         store.dispatch(setToken(response.data.access_token, response.data.expires_at));
         store.dispatch(setUser(response.data.user));
 
-        // this.setState({ isLogin: true });
-        
         return true;
       })
       .catch(error => console.log(error));
@@ -146,35 +167,56 @@ class MainApp extends React.Component {
       <PersistGate loading={null} persistor={persistor}>
         <View style={{ flex: 1 }}>
 
-          {/* {this.props.auth.user ? <MainRouter /> : <LoginRouter />} */}
-
-          <MainRouter />
-          
+          {this.state.isLogin ? <MainRouter /> : <LoginRouter />}
         
         </View>
       </PersistGate>
     </Provider>
   );
 
-  render = () => (this.state.isLoaded ? this.renderApp() : this.renderLoading());
+  render = () => (this.state.isLoaded && this.state.isLogin != null ? this.renderApp() : this.renderLoading());
+
+
+  // render() {
+  //   const { isLogin } = this.state;
+
+  //   return (
+  //     <Provider store={store}>
+  //       <PersistGate loading={null} persistor={persistor}>
+  //         <View style={{ flex: 1 }}>
+
+  //           {this.state.isLogin ? <MainRouter /> : <LoginRouter />}
+
+  //         </View>
+  //       </PersistGate>
+  //     </Provider>
+  //   );
+  // }
+
 
 }
 
 
-// export default MainApp;
+export default MainApp;
 
 
+// const mapStateToProps = state => {
+//   return {
+//     auth: state.auth
+//   };
+// };
+// export default connect(mapStateToProps)(MainApp);
 
-export default connect(
-  state => ({
-    auth: state.auth
-  }),
-  dispatch => {
-    return {      
-      authStateActions: bindActionCreators(AuthStateActions, dispatch)
-    };
-  }
-)(MainApp);
+// export default connect(
+//   state => ({
+//     auth: state.auth
+//   }),
+//   dispatch => {
+//     return {      
+//       authStateActions: bindActionCreators(AuthStateActions, dispatch)
+//     };
+//   }
+// )(MainApp);
 
 
 
