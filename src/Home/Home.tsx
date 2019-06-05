@@ -1,18 +1,25 @@
-import React, { Component } from "react";
+import React from "react";
+
 import {
   View,
   Text,
-  SafeAreaView,
   TouchableOpacity,
   Image,
-  StyleSheet
+  StyleSheet,  
+  SafeAreaView
 } from "react-native";
+
 import CommonStyles from "../utils/CommonStyles";
 import firebase from "react-native-firebase";
 import { LoginManager } from "react-native-fbsdk";
 import { GoogleSignin } from "react-native-google-signin";
 
-export default class Home extends Component {
+
+  
+
+// export default class Home extends Component {
+
+export default class Home extends React.Component{  
   constructor(props) {
     super(props);
     this.state = {};
@@ -63,6 +70,9 @@ export default class Home extends Component {
   };
 
 
+
+
+
   render() {
     const { currentUser } = firebase.auth();
 
@@ -71,6 +81,13 @@ export default class Home extends Component {
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
+
+
+
+          
+
+
+
           <Image
             source={require("../../assets/firebase_logo.png")}
             style={{ height: 100, width: 100, marginBottom: 10 }}
@@ -79,13 +96,14 @@ export default class Home extends Component {
             Logueado!
           </Text>
 
-
-
-          {currentUser.photoURL && <Image source={{ uri: currentUser.photoURL }} style={{ width: 50, height: 50, marginTop:10 }} />}
-          
-          <Text style={styles.normalText}>Name: {currentUser.displayName}</Text>
-          <Text style={styles.normalText}>Email: {currentUser.email}</Text>
-          <Text style={styles.normalText}>Login Type : {this._loginType()}</Text>
+          {currentUser&&
+            <React.Fragment>
+              <Image source={{ uri: currentUser.photoURL }} style={{ width: 50, height: 50, marginTop:10 }} />            
+              <Text style={styles.normalText}>Name: {currentUser.displayName}</Text>
+              <Text style={styles.normalText}>Email: {currentUser.email}</Text>
+              <Text style={styles.normalText}>Login Type : {this._loginType()}</Text>
+            </React.Fragment>            
+          }
           
 
           <TouchableOpacity
@@ -106,3 +124,6 @@ const styles = StyleSheet.create({
     marginBottom: 5
   }
 });
+
+
+

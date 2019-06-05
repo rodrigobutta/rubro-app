@@ -1,19 +1,15 @@
 import React, { Component } from "react";
-import { View, StatusBar, AsyncStorage, Text } from "react-native";
+import { View, StatusBar, AsyncStorage, Text, Platform, Animated, Image } from "react-native";
 
 import firebase from "react-native-firebase";
 import Constants from "./src/utils/Constants";
 import * as Utilities from "./src/utils/Utilities";
 import LoginRouter from "./src/utils/LoginRouter";
-import Home from "./src/Home/Home";
+import { MainRouter } from "./src/utils/router";
+// import Home from "./src/Home/Home";
 import { GoogleSignin } from 'react-native-google-signin';
 
 
-
-import {
-  createDrawerNavigator,
-  createStackNavigator,
-} from 'react-navigation';
 
 
 import {Provider, connect} from 'react-redux';
@@ -26,10 +22,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 // import track from './config/analytics';
 import { data } from './src/data';
 import {store, persistor} from './src/redux/store';
-import CounterViewContainer from './src/modules/counter/CounterViewContainer';
-import ColorViewContainer from './src/modules/colors/ColorViewContainer';
-import Agenda from './src/modules/agenda/agenda';
-import LoginViewContainer from './src/modules/auth/LoginViewContainer';
+
 
 
 import axios from 'axios';
@@ -38,6 +31,19 @@ import { API_URL } from './src/config/enviroment';
 
 import {setToken, setUser} from './src/modules/auth/AuthState';
 
+import CounterViewContainer from './src/modules/counter/CounterViewContainer';
+import ColorViewContainer from './src/modules/colors/ColorViewContainer';
+import Agenda from './src/modules/agenda/agenda';
+import LoginViewContainer from './src/modules/auth/LoginViewContainer';
+import Camera from './src/modules/camera/camera';
+
+
+import {
+  createDrawerNavigator,
+  createStackNavigator,
+  createAppContainer
+} from 'react-navigation';
+
 
 // XMLHttpRequest = GLOBAL.originalXMLHttpRequest ?
 //     GLOBAL.originalXMLHttpRequest :
@@ -45,28 +51,15 @@ import {setToken, setUser} from './src/modules/auth/AuthState';
 XMLHttpRequest = GLOBAL.originalXMLHttpRequest;  // con este salta error rojo a cada vez, pero veo en NETWORK XHR
 // XMLHttpRequest = GLOBAL.XMLHttpRequest  // con este no tengo error pero lo veo en FETCH del CONSOLE
 
-// bootstrap();
-data.populateData();
 
 
 
-const MainnnApp = createStackNavigator({
+
+  
+const ExampleRoutes: any = {
   First: {
     screen: LoginViewContainer// Screens.SplashScreen,
   },
-  // Home: {
-  //   screen: createDrawerNavigator(
-  //     {
-  //       ...AppRoutes,
-  //     },
-  //     {
-  //       contentComponent: (props) => {
-  //         const SideMenu = withRkTheme(Screens.SideMenu);
-  //         return <SideMenu {...props} />;
-  //       },
-  //     },
-  //   ),
-  // },
   Counter: {
     screen: CounterViewContainer
   },
@@ -79,9 +72,18 @@ const MainnnApp = createStackNavigator({
   Login: {
     screen: LoginViewContainer
   },
-}, {
-  headerMode: 'none',
-});
+  Camera: {
+    screen: Camera
+  }
+};
+  
+
+
+// bootstrap();
+data.populateData();
+
+
+
 
 
   axios.interceptors.request.use(function (params) {
@@ -101,7 +103,8 @@ const MainnnApp = createStackNavigator({
 
 
   // class App extends Component {
-export default class App extends Component {
+// export default class App extends Component {
+export default class MainScreen extends React.Component<any, State> {
   
   constructor(props) {
     super(props);
@@ -123,8 +126,8 @@ export default class App extends Component {
   _coreAuth = (user) => {
 
         
-    // global.currentUser = user;
-    // AsyncStorage.setItem(Constants.keyCurrentUser, JSON.stringify(user));
+    global.currentUser = user;
+    AsyncStorage.setItem(Constants.keyCurrentUser, JSON.stringify(user));
 
 
     user.getIdToken().then(function(idToken) {  // <------ Check this line
@@ -233,22 +236,24 @@ export default class App extends Component {
   }
 
 
-
   
-  onNavigationStateChange = (previous, current) => {
-    const screen = {
-      current: this.getCurrentRouteName(current),
-      previous: this.getCurrentRouteName(previous),
-    };
-    // if (screen.previous !== screen.current) {
-    //   track(screen.current);
-    // }
-  };
+  // onNavigationStateChange = (previous, current) => {
+  //   const screen = {
+  //     current: this.getCurrentRouteName(current),
+  //     previous: this.getCurrentRouteName(previous),
+  //   };
+  //   // if (screen.previous !== screen.current) {
+  //   //   track(screen.current);
+  //   // }
+  // };
 
-  getCurrentRouteName = (navigation) => {
-    const route = navigation.routes[navigation.index];
-    return route.routes ? this.getCurrentRouteName(route) : route.routeName;
-  };
+  // getCurrentRouteName = (navigation) => {
+  //   const route = navigation.routes[navigation.index];
+  //   return route.routes ? this.getCurrentRouteName(route) : route.routeName;
+  // };
+
+
+
 
   loadAssets = async () => {
     // await Font.loadAsync({
@@ -276,8 +281,9 @@ export default class App extends Component {
       <PersistGate loading={null} persistor={persistor}>
         <View style={{ flex: 1 }}>
 
-          {this.state.isLogin ? <Home /> : <LoginRouter />}
-    
+          {this.state.isLogin ? <MainRouter /> : <LoginRouter />}
+          
+          {/* <RootStack onNavigationStateChange={this.onNavigationStateChange} /> */}
         
         
         </View>
@@ -290,3 +296,31 @@ export default class App extends Component {
  
 }
 
+
+
+const AppNavigator = createAppContainer(
+  createStackNavigator(
+    {
+      ...ExampleRoutes,
+      Index: {
+        screen: MainScreen,
+      },
+    },
+    {
+      headerMode: 'none',
+      initialRouteName: 'Index',
+
+      /*
+       * Use modal on iOS because the card mode comes from the right,
+       * which conflicts with the drawer example gesture
+       */
+      mode: Platform.OS === 'ios' ? 'modal' : 'card',
+    }
+  )
+);
+
+export default class App extends React.Component {
+  render() {
+    return <AppNavigator /* persistenceKey="if-you-want-it" */ />;
+  }
+}
