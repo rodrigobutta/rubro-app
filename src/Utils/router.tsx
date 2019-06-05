@@ -2,7 +2,8 @@ import React from "react";
 import {  
   Text,  
   ScrollView, 
-  StatusBar
+  StatusBar,
+  Button
 } from "react-native";
 
 import {
@@ -12,14 +13,14 @@ import {
   SafeAreaView,
 } from 'react-navigation';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
-import { Button } from '../commonComponents/ButtonWithMargin';
+import { ButtonWithMargin } from '../commonComponents/ButtonWithMargin';
 
 import Home from "../Home/Home";
 import Profile from "../Profile/Profile";
 import EditProfile from "../Profile/Edit";
 
 import MainMenuContents from "./MainMenu";
-
+import MainMenuBurguer from "../utils/MainMenuBurguer";
 
 const SubScreenWrapper = ({
   navigation,
@@ -30,9 +31,9 @@ const SubScreenWrapper = ({
 }) => (
   <ScrollView>
     <SafeAreaView forceInset={{ top: 'always' }}>      
-      <Button onPress={() => navigation.openDrawer()} title="Menú" />
-      <Button onPress={() => navigation.navigate('Dashboard2')} title="Directo Dashboard 2" />
-      <Button onPress={() => navigation.navigate('Index')} title="Volver" />
+      <ButtonWithMargin onPress={() => navigation.openDrawer()} title="Menú" />
+      <ButtonWithMargin onPress={() => navigation.navigate('Dashboard2')} title="Directo Dashboard 2" />
+      <ButtonWithMargin onPress={() => navigation.navigate('Index')} title="Volver" />
 
 
     </SafeAreaView>
@@ -40,62 +41,36 @@ const SubScreenWrapper = ({
   </ScrollView>
 );
 
-const ProfileScreen = ({
-  navigation,
-}: {
-  navigation: NavigationScreenProp<NavigationState>;
-}) => <Profile navigation={navigation} /> ;
 
 
-// (
-//   <ScrollView>
-//     <SafeAreaView forceInset={{ top: 'always' }}>      
-//       <Text>info sobre el perfil del usuario</Text>        
-//       <Button onPress={() => navigation.navigate('Profile2')} title="Ir a Profile 2" />        
-//     </SafeAreaView>
-//     <StatusBar barStyle="default" />
-//   </ScrollView>
 
 
-// ProfileScreen.navigationOptions = {
-//   headerTitle: 'Perfil',
-// };
 
-// const Profile2Screen = ({
+
+
+
+
+
+
+
+
+// const DashboardScreen = ({
 //   navigation,
 // }: {
-//   navigation: NavigationScreenProp<NavigationState>;
+//   navigation: NavigationScreenProp<NavigationState>;  
 // }) => (
 //   <ScrollView>
-//     <SafeAreaView forceInset={{ top: 'always' }}>      
-//       <Text>perfil 2222 info sobre el perfil del usuario</Text>        
-//       <Button onPress={() => navigation.navigate('Profile')} title="Volver" />        
-//     </SafeAreaView>
-//     <StatusBar barStyle="default" />
-//   </ScrollView>
+//       <SafeAreaView forceInset={{ top: 'always' }}>      
+//         <Home navigation={navigation} />
+//         <ButtonWithMargin onPress={() => navigation.openDrawer()} title="Menú" />
+//         <ButtonWithMargin onPress={() => navigation.navigate('Dashboard2')} title="Ir a Dashboard 2" />        
+      
+//       </SafeAreaView>
+//       <StatusBar barStyle="default" />
+//     </ScrollView>
 // );
 
-
-
-const DashboardScreen = ({
-  navigation,
-}: {
-  navigation: NavigationScreenProp<NavigationState>;
-}) => (
-  <ScrollView>
-      <SafeAreaView forceInset={{ top: 'always' }}>      
-        <Home navigation={navigation} />
-        <Button onPress={() => navigation.openDrawer()} title="Menú" />
-        <Button onPress={() => navigation.navigate('Dashboard2')} title="Ir a Dashboard 2" />        
-      
-      </SafeAreaView>
-      <StatusBar barStyle="default" />
-    </ScrollView>
-);
-
-DashboardScreen.navigationOptions = {
-  headerTitle: 'Dashboard',
-};
+// DashboardScreen.navigationOptions = navigationOptionsHeader;
 
 
 
@@ -125,7 +100,7 @@ const ProfileStack = createStackNavigator(
 
 const DashboardStack = createStackNavigator(
   {
-    Dashboard: { screen: DashboardScreen },
+    Dashboard: { screen: Home },
     Dashboard2: { screen: Dashboard2Screen },
   },
   {
@@ -134,9 +109,32 @@ const DashboardStack = createStackNavigator(
         <Text>XX</Text>
       ),
       drawerLabel: 'Dashboard',
+      headerLayoutPreset: 'center'
     },
   }
 );
+
+
+
+
+
+
+// export const navigationOptionsHeader=({navigation})=>{
+  
+//   return {    
+//     headerRight: (
+//       <Button
+//         onPress={() => navigation.toggleDrawer()}
+//         title="Info"
+//         color="#222"
+//       />
+//     )
+//   };
+
+// }
+
+
+
 
 const MainNavigation = createDrawerNavigator(
   {
@@ -155,10 +153,23 @@ const MainNavigation = createDrawerNavigator(
       activeTintColor: '#e91e63',
     },
     initialRouteName: 'Dashboard',
-    drawerPosition: 'right',
-    contentComponent: MainMenuContents
+    drawerPosition: 'left',
+    contentComponent: MainMenuContents,
+    // navigationOptions: {     
+    //   headerLayoutPreset: 'center'
+    // },
+    // defaultNavigationOptions: {
+    //   headerTitleStyle: { alignSelf: 'center' },
+    // },
+    // navigationOptions: navigationOptionsHeader
   }
 );
+
+
+
+
+
+
 
 
 export const MainRouter = createAppContainer(MainNavigation);

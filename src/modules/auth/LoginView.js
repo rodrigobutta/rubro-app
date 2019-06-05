@@ -67,7 +67,7 @@ class LoginView extends Component {
     .get(API_URL + '/auth/logout')
     .then(res => {
       // console.log(res);
-      this.props.authStateActions.resetToken();
+      this.props.authStateActions.logoutUser();
       return true;
     })
     .catch(err => console.log(err));

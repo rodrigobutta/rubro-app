@@ -1,16 +1,19 @@
 
 const INITIAL_STATE = {
-  token: 0
+  token: null,
+  expires: null,
+  user: null
 };
 
 // Actions
 const SET_TOKEN = 'AuthState/SET_TOKEN';
 const RESET_TOKEN = 'AuthState/RESET_TOKEN';
 const SET_USER = 'AuthState/SET_USER';
+const RESET_USER = 'AuthState/RESET_USER';
 
 
-import axios from 'axios';
-import { API_URL } from '../../config/enviroment';
+// import axios from 'axios';
+// import { API_URL } from '../../config/enviroment';
 
 
 // Action creators
@@ -41,6 +44,10 @@ export function setUser($info) {
         info: $info        
     }
   };
+}
+
+export function resetUser() {
+  return {type: RESET_USER};
 }
 
 
@@ -79,6 +86,10 @@ export default function AuthStateReducer(state = INITIAL_STATE, action = {}) {
         user: action.payload.info      
       };
 
+    case RESET_USER:
+      return INITIAL_STATE;
+
+        
     default:
       return state;
   }

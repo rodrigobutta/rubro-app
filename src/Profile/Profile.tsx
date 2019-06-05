@@ -15,26 +15,20 @@ import firebase from "react-native-firebase";
 import { LoginManager } from "react-native-fbsdk";
 import { GoogleSignin } from "react-native-google-signin";
 
-// interface Props {
-//   styleTags: any
-// }
+import MainMenuBurguer from "../utils/MainMenuBurguer";
 
-// interface State {
-//   currentUser: null;
-// }
 
-export default class Profile extends React.Component<any, any>{    
-// export default class Profile extends React.Component<Props, State>{  
-  
+export default class Profile extends React.Component<any, any>{     
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'Perfil',
-      headerRight: (
-        <Button onPress={navigation.getParam('openMainMenu')} title="Menú" color="#f0f" />
+      headerLeft: (
+        <MainMenuBurguer navigation={navigation} badge={1}  />        
       ),
     };
   };
 
+  // <Button onPress={navigation.getParam('openMainMenu')} title="Menú" color="#f0f" />
   
   componentWillMount() {
     this.props.navigation.setParams({ openMainMenu: this._openMainMenu });

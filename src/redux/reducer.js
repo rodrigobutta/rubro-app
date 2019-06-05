@@ -13,6 +13,7 @@ import AuthStateReducer from '../modules/auth/AuthState';
 
 const persistConfig = {
   key: 'root',
+  timeout: 0,
   storage,
   // whitelist: [
   //   'token','expires'

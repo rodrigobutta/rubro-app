@@ -14,12 +14,23 @@ import firebase from "react-native-firebase";
 import { LoginManager } from "react-native-fbsdk";
 import { GoogleSignin } from "react-native-google-signin";
 
-
-  
+import MainMenuBurguer from "../utils/MainMenuBurguer";
+// import { navigationOptionsHeader } from '../utils/router';
 
 // export default class Home extends Component {
 
-export default class Home extends React.Component{  
+export default class Home extends React.Component<any, any>{    
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: 'Dash',
+      headerLeft: (
+        <MainMenuBurguer navigation={navigation} badge={1}  />                
+      )      
+    };
+  };
+
+
+
   constructor(props) {
     super(props);
     this.state = {};

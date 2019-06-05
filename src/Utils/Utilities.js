@@ -3,10 +3,12 @@ import * as Constants from "./Constants";
 
 export function setInitialGlobalValues() {
 
-  AsyncStorage.getItem(Constants.keyCurrentUser).then(val => {
-    val ? global.currentUser = JSON.parse(val) : global.currentUser = null;
-    Constants.debugLog("Current User: " + val);
-  });
+  // AsyncStorage.getItem(Constants.keyCurrentUser).then(val => {
+  //   val ? global.currentUser = JSON.parse(val) : global.currentUser = null;
+  //   Constants.debugLog("Current User: " + val);
+  // });
+
+  global.currentUser = null;
 
   global.fullNameTemp = null;
   

@@ -27,6 +27,9 @@ const menuData = [
 
 
 class MainMenu extends Component {
+
+    
+
   render() {
     return (
       <View style={styles.container}>
@@ -43,6 +46,7 @@ class MainMenu extends Component {
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({

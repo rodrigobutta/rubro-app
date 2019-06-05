@@ -22,8 +22,8 @@ export default class EmailLogin extends Component {
 
     // firebase.auth.EmailAuthProvider
     this.state = {
-      loginEmail: "",
-      loginPassword: "",
+      loginEmail: "rbutta@gmail.com",
+      loginPassword: "rbutta",
       signUpFullName: "",
       signUpEmail: "",
       signUpPassword: "",
