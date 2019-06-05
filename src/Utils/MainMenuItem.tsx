@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 
 const MainMenuItem = ({ navigation, icon, label, screen }) =>
   <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate(screen)} >
-    {/* <Icon name={icon} size={25} color="#333" style={{margin:15}} /> */}
+    <Icon name={icon} size={25} color="#333" style={{margin:15}} />
     <Text style={styles.menuItemText}>{label}</Text>
   </TouchableOpacity>
 

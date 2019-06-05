@@ -14,7 +14,7 @@ const CommonStyles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
     paddingLeft: 10,
-    color:"#fff",
+    color:Constants.colors.textColor,
     fontSize:16
   },
   icon: {
@@ -45,10 +45,10 @@ const CommonStyles = StyleSheet.create({
   themeButtonTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: "#fff"
+    color: Constants.colors.textColor
   },
   spinnerTextStyle: {
-    color: "#FFF"
+    color: "#555"
   }
 });
 

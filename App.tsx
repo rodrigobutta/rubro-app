@@ -1,20 +1,20 @@
 import React, { Component } from "react";
-import { View, StatusBar, AsyncStorage, Text, Platform, Animated, Image } from "react-native";
+// import { View, StatusBar, AsyncStorage, Text, Platform, Animated, Image } from "react-native";
 import axios from 'axios';
 
-import {
-  createStackNavigator,
-  createAppContainer
-} from 'react-navigation';
+// import {
+//   createStackNavigator,
+//   createAppContainer
+// } from 'react-navigation';
 
 import { data } from './src/data';
-import {store, persistor} from './src/redux/store';
+import {store} from './src/redux/store';
 
-import CounterViewContainer from './src/modules/counter/CounterViewContainer';
-import ColorViewContainer from './src/modules/colors/ColorViewContainer';
-import Agenda from './src/modules/agenda/agenda';
-import LoginViewContainer from './src/modules/auth/LoginViewContainer';
-import Camera from './src/modules/camera/camera';
+// import CounterViewContainer from './src/modules/counter/CounterViewContainer';
+// import ColorViewContainer from './src/modules/colors/ColorViewContainer';
+// import Agenda from './src/modules/agenda/agenda';
+// import LoginViewContainer from './src/modules/auth/LoginViewContainer';
+// import Camera from './src/modules/camera/camera';
 import MainApp from './src/MainApp';
 
 
@@ -26,26 +26,26 @@ XMLHttpRequest = GLOBAL.originalXMLHttpRequest;  // con este salta error rojo a 
 
 
   
-const MainRoutes: any = {
-  First: {
-    screen: LoginViewContainer// Screens.SplashScreen,
-  },
-  Counter: {
-    screen: CounterViewContainer
-  },
-  Color: {
-    screen: ColorViewContainer
-  },
-  Agenda: {
-    screen: Agenda
-  },
-  Login: {
-    screen: LoginViewContainer
-  },
-  Camera: {
-    screen: Camera
-  }
-};
+// const MainRoutes: any = {
+//   First: {
+//     screen: LoginViewContainer// Screens.SplashScreen,
+//   },
+//   Counter: {
+//     screen: CounterViewContainer
+//   },
+//   Color: {
+//     screen: ColorViewContainer
+//   },
+//   Agenda: {
+//     screen: Agenda
+//   },
+//   Login: {
+//     screen: LoginViewContainer
+//   },
+//   Camera: {
+//     screen: Camera
+//   }
+// };
   
 
 // bootstrap();

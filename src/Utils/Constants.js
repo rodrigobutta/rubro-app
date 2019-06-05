@@ -1,16 +1,14 @@
 var { EventEmitter } = require("fbemitter");
 
 module.exports = {
-  alertTitle: "Firebase Auth",
-  keyCurrentUser: "currentUser",
+  alertTitle: "Rubro",  
   emitter: new EventEmitter(),
-  loginListener: "loginListener",
   logoutListener: "logoutListener",
   colors: {
-    themeBGColor: "#aaa",
-    buttonBGColor: "#888",
-    borderColor: "#555",
-    whiteTitleColor: "#fff"
+    themeBGColor: "#ffffff",
+    buttonBGColor: "#ccc",
+    borderColor: "#777",
+    textColor: "#111"
   },
   keyLoginNav: {
     keyStack: "Stack",
@@ -19,7 +17,6 @@ module.exports = {
   /// Common Functions
   debugLog: log => {
     console.log("\n====================>");
-    console.log(log);
-    console.log("<====================\n");
+    console.log(log);  
   }
 };

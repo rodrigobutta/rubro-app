@@ -139,8 +139,8 @@ export default class EmailLogin extends Component {
       <View style={styles.page}>
         <TextInput
           style={CommonStyles.textInput}
-          placeholder="Email Id"
-          placeholderTextColor="#eee"
+          placeholder="Email"
+          placeholderTextColor="#aaaaaa"
           keyboardType="email-address"
           value={this.state.loginEmail}
           onChangeText={loginEmail => {
@@ -150,8 +150,8 @@ export default class EmailLogin extends Component {
         />
         <TextInput
           style={CommonStyles.textInput}
-          placeholder="Password"
-          placeholderTextColor="#eee"
+          placeholder="Contraseña"
+          placeholderTextColor="#aaaaaa"
           value={this.state.loginPassword}
           onChangeText={loginPassword => {
             this.setState({ loginPassword });
@@ -163,7 +163,7 @@ export default class EmailLogin extends Component {
           style={[CommonStyles.themeButton, { marginTop: 20 }]}
           onPress={this._handleLogin}
         >
-          <Text style={CommonStyles.themeButtonTitle}>Login</Text>
+          <Text style={CommonStyles.themeButtonTitle}>Entrar</Text>
         </TouchableOpacity>
       </View>
     );
@@ -174,8 +174,8 @@ export default class EmailLogin extends Component {
       <View style={styles.page}>
         <TextInput
           style={CommonStyles.textInput}
-          placeholder="Full Name"
-          placeholderTextColor="#eee"
+          placeholder="Nombre"
+          placeholderTextColor="#aaaaaa"
           value={this.state.signUpFullName}
           onChangeText={signUpFullName => {
             this.setState({ signUpFullName });
@@ -184,8 +184,8 @@ export default class EmailLogin extends Component {
         />
         <TextInput
           style={CommonStyles.textInput}
-          placeholder="Email Id"
-          placeholderTextColor="#eee"
+          placeholder="Email"
+          placeholderTextColor="#aaaaaa"
           keyboardType="email-address"
           value={this.state.signUpEmail}
           onChangeText={signUpEmail => {
@@ -195,8 +195,8 @@ export default class EmailLogin extends Component {
         />
         <TextInput
           style={CommonStyles.textInput}
-          placeholder="Password"
-          placeholderTextColor="#eee"
+          placeholder="Clave"
+          placeholderTextColor="#aaaaaa"
           value={this.state.signUpPassword}
           onChangeText={signUpPassword => {
             this.setState({ signUpPassword });
@@ -208,7 +208,7 @@ export default class EmailLogin extends Component {
           style={[CommonStyles.themeButton, { marginTop: 20 }]}
           onPress={this._handleSignUp}
         >
-          <Text style={CommonStyles.themeButtonTitle}>Sign Up</Text>
+          <Text style={CommonStyles.themeButtonTitle}>Aceptar</Text>
         </TouchableOpacity>
       </View>
     );
@@ -224,14 +224,14 @@ export default class EmailLogin extends Component {
         selectedItemStyle={{ width: windowWidth / 2 - 20 }}
         selectedItemTextStyle={styles.indicatorSelectedText}
         selectedBorderStyle={styles.selectedBorderStyle}
-        titles={["Login", "Sign Up"]}
+        titles={["Ingresá", "Registrate"]}
       />
     );
   }
 
   render() {
     return (
-      <SafeAreaView style={[CommonStyles.safeAreaContainer, {backgroundColor:'#50B6BC'}]}>
+      <SafeAreaView style={[CommonStyles.safeAreaContainer, {backgroundColor:'#ffffff'}]}>
         <Spinner
           visible={this.state.spinner}
           textStyle={CommonStyles.spinnerTextStyle}
@@ -250,6 +250,7 @@ export default class EmailLogin extends Component {
   }
 }
 
+
 const styles = StyleSheet.create({
   indicatorContainer: {
     height: 50,
@@ -257,15 +258,15 @@ const styles = StyleSheet.create({
     top: 20,
     left: 0,
     right: 0,
-    backgroundColor: "#00000020"
+    backgroundColor: "#bf0811"
   },
   indicatorText: {
     fontSize: 14,
-    color: "#ffffff99"
+    color: "#aaaaaa"
   },
   indicatorSelectedText: {
     fontSize: 14,
-    color: "#ffffffff"
+    color: "#ffffff"
   },
   selectedBorderStyle: {
     height: 3,

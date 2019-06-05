@@ -105,7 +105,7 @@ export default class Profile extends React.Component<any, any>{
 
 
           <Image
-            source={require("../../assets/firebase_logo.png")}
+            source={require("../../assets/app_logo.png")}
             style={{ height: 100, width: 100, marginBottom: 10 }}
           />
           <Text style={{ fontSize: 22, marginBottom: 10 }}>
