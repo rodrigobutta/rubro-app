@@ -15,6 +15,10 @@ import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { Button } from '../commonComponents/ButtonWithMargin';
 
 import Home from "../Home/Home";
+import Profile from "../Profile/Profile";
+import EditProfile from "../Profile/Edit";
+
+import MainMenuContents from "./MainMenu";
 
 
 const SubScreenWrapper = ({
@@ -40,34 +44,36 @@ const ProfileScreen = ({
   navigation,
 }: {
   navigation: NavigationScreenProp<NavigationState>;
-}) => (
-    <ScrollView>
-      <SafeAreaView forceInset={{ top: 'always' }}>      
-        <Text>info sobre el perfil del usuario</Text>        
-        <Button onPress={() => navigation.navigate('Profile2')} title="Ir a Profile 2" />        
-      </SafeAreaView>
-      <StatusBar barStyle="default" />
-    </ScrollView>
-    
-);
+}) => <Profile navigation={navigation} /> ;
 
-ProfileScreen.navigationOptions = {
-  headerTitle: 'Perfil',
-};
 
-const Profile2Screen = ({
-  navigation,
-}: {
-  navigation: NavigationScreenProp<NavigationState>;
-}) => (
-  <ScrollView>
-    <SafeAreaView forceInset={{ top: 'always' }}>      
-      <Text>perfil 2222 info sobre el perfil del usuario</Text>        
-      <Button onPress={() => navigation.navigate('Profile')} title="Volver" />        
-    </SafeAreaView>
-    <StatusBar barStyle="default" />
-  </ScrollView>
-);
+// (
+//   <ScrollView>
+//     <SafeAreaView forceInset={{ top: 'always' }}>      
+//       <Text>info sobre el perfil del usuario</Text>        
+//       <Button onPress={() => navigation.navigate('Profile2')} title="Ir a Profile 2" />        
+//     </SafeAreaView>
+//     <StatusBar barStyle="default" />
+//   </ScrollView>
+
+
+// ProfileScreen.navigationOptions = {
+//   headerTitle: 'Perfil',
+// };
+
+// const Profile2Screen = ({
+//   navigation,
+// }: {
+//   navigation: NavigationScreenProp<NavigationState>;
+// }) => (
+//   <ScrollView>
+//     <SafeAreaView forceInset={{ top: 'always' }}>      
+//       <Text>perfil 2222 info sobre el perfil del usuario</Text>        
+//       <Button onPress={() => navigation.navigate('Profile')} title="Volver" />        
+//     </SafeAreaView>
+//     <StatusBar barStyle="default" />
+//   </ScrollView>
+// );
 
 
 
@@ -104,8 +110,8 @@ const Dashboard2Screen = ({
 
 const ProfileStack = createStackNavigator(
   {
-    Profile: { screen: ProfileScreen },
-    Profile2: { screen: Profile2Screen }    
+    Profile: { screen: Profile },
+    EditProfile: { screen: EditProfile }    
   },
   {
     navigationOptions: {
@@ -149,6 +155,8 @@ const MainNavigation = createDrawerNavigator(
       activeTintColor: '#e91e63',
     },
     initialRouteName: 'Dashboard',
+    drawerPosition: 'right',
+    contentComponent: MainMenuContents
   }
 );
 

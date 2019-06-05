@@ -3,6 +3,7 @@ package com.rodrigobutta.rubro;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.cmcewen.blurview.BlurViewPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new BlurViewPackage(),
             new RNGoogleSigninPackage(),
             new VectorIconsPackage(),
             new FBSDKPackage(mCallbackManager),
