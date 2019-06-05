@@ -11,7 +11,7 @@ import axios from 'axios';
 import LoginRouter from "./utils/LoginRouter";
 import { MainRouter } from "./utils/router";
 // import * as AuthStateActions from './modules/auth/AuthState';
-
+import * as AuthStateActions from './modules/auth/AuthState';
 
 import {store, persistor} from './redux/store';
 
@@ -19,7 +19,7 @@ import { API_URL } from './config/enviroment';
 import {setToken, setUser, resetToken, resetUser} from './modules/auth/AuthState';
 
 
-class Main extends React.Component {
+class MainApp extends React.Component {
   
   constructor(props) {
     super(props);
@@ -148,7 +148,7 @@ class Main extends React.Component {
 
           {/* {this.props.auth.user ? <MainRouter /> : <LoginRouter />} */}
 
-          <LoginRouter />
+          <MainRouter />
           
         
         </View>
@@ -161,29 +161,28 @@ class Main extends React.Component {
 }
 
 
-// export default Main;
-
-// export default connect(
-//   state => ({
-//     auth: state.auth
-//   }),
-//   dispatch => {
-//     return {      
-//       authStateActions: bindActionCreators(AuthStateActions, dispatch)
-//     };
-//   }
-// )(Main);
+// export default MainApp;
 
 
-
-
-const mapState = state => state.auth
-const mapDispatch = { setToken, setUser, resetToken, resetUser }
-
-// call connect to generate the wrapper function, and immediately call
-// the wrapper function to generate the final wrapper component.
 
 export default connect(
-  mapState,
-  mapDispatch
-)(Main)
+  state => ({
+    auth: state.auth
+  }),
+  dispatch => {
+    return {      
+      authStateActions: bindActionCreators(AuthStateActions, dispatch)
+    };
+  }
+)(MainApp);
+
+
+
+
+// const mapState = state => state.auth
+// const mapDispatch = { setToken, setUser, resetToken, resetUser }
+
+// export default connect(
+//   mapState,
+//   mapDispatch
+// )(MainApp)

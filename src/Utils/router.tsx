@@ -108,8 +108,7 @@ const DashboardStack = createStackNavigator(
       drawerIcon: ({ tintColor }) => (
         <Text>XX</Text>
       ),
-      drawerLabel: 'Dashboard',
-      headerLayoutPreset: 'center'
+      drawerLabel: 'Dashboard'
     },
   }
 );

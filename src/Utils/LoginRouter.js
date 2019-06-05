@@ -5,7 +5,7 @@ import FBLogin from "../Login/FBLogin";
 import GoogleLogin from "../Login/GoogleLogin";
 import AnonymousLogin from "../Login/AnonymousLogin";
 
-const LoginTab = createAppContainer(
+const LoginRouter = createAppContainer(
   createBottomTabNavigator(
     {
       EmailLogin: EmailLogin,
@@ -23,4 +23,4 @@ const LoginTab = createAppContainer(
   )
 );
 
-export default LoginTab;
+export default LoginRouter;
