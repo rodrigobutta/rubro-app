@@ -24,6 +24,7 @@ import Agenda from '../modules/agenda/agenda';
 
 import RequestInit from "../Request/Init";
 import RequestMedia from "../Request/Media";
+import RequestSearch from "../Request/Search";
 
 
 
@@ -87,6 +88,7 @@ const DashboardStack = createStackNavigator(
 const RequestStack = createStackNavigator(
   {
     RequestInit: { screen: RequestInit },
+    RequestSearch: { screen: RequestSearch },
     RequestMedia: { screen: RequestMedia },
   },
   {

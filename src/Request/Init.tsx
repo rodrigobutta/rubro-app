@@ -41,7 +41,8 @@ export default class Init extends React.Component<any, any>{
             Solicitar servicio
           </Text>
 
-          <Button onPress={() => navigation.navigate('RequestMedia')} title="Iniciar" />        
+          <Button onPress={() => navigation.navigate('RequestSearch')} title="Nueva solicitud" />
+          <Button onPress={() => navigation.navigate('RequestMedia')} title="Fotos y eso" />
             
         </View>
       </SafeAreaView>
