@@ -19,7 +19,7 @@ import MainMenuBurguer from "../utils/MainMenuBurguer";
 class Home extends React.Component<any, any>{    
   static navigationOptions = ({ navigation }) => {
     return {
-      headerTitle: 'Dashboard',
+      headerTitle: 'Inicio',
       headerLeft: (
         <MainMenuBurguer navigation={navigation} badge={1}  />                
       )      

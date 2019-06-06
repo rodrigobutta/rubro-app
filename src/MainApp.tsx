@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StatusBar, Text } from "react-native";
+import { View, StatusBar, Text, Image } from "react-native";
 import firebase from "react-native-firebase";
 import { GoogleSignin } from 'react-native-google-signin';
 import {Provider} from 'react-redux';
@@ -121,14 +121,18 @@ class MainApp extends React.Component {
         isLoaded: true
       });
 
-    }, 500);
+    }, 1000);
 
   };
 
-
   renderLoading = () => (
-    <View style={{ flex: 1 }}>
-      <Text>{'Cargando...'}</Text>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+
+      <Image
+        source={require("../assets/app_logo.png")}
+        style={{ height: 100, width: 100 }}
+      />
+
     </View>
   );
 

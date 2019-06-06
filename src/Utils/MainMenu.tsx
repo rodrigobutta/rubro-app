@@ -18,7 +18,9 @@ import MainMenuItem from './MainMenuItem'
 const menuData = [
     {icon: "ios-home", label:"Dashboard", screen:'Dashboard', key:'menu_dashboard'},
     {icon: "ios-person", label:"Perfil", screen: 'Profile', key:'menu_profile'},  
-    {icon: "ios-happy", label:"Test", screen: 'Test', key:'menu_test'},  
+    {icon: "ios-megaphone", label:"Pedidos", screen: 'Request', key:'menu_request'},  
+    {icon: "ios-happy", label:"Test", screen: 'Agenda', key:'menu_test'},  
+    
   ]
   
 

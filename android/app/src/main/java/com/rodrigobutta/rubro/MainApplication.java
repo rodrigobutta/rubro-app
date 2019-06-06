@@ -3,6 +3,7 @@ package com.rodrigobutta.rubro;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 // import org.reactnative.camera.RNCameraPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -43,6 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new PickerPackage(),
             // new RNCameraPackage(),
             new BlurViewPackage(),
             new RNGoogleSigninPackage(),

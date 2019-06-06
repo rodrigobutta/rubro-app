@@ -19,7 +19,13 @@ import MainMenuContents from "./MainMenu";
 import Home from "../Home/Home";
 import Profile from "../Profile/Profile";
 import EditProfile from "../Profile/Edit";
-import Camera from "../modules/camera/camera";
+
+import Agenda from '../modules/agenda/agenda';
+
+import RequestInit from "../Request/Init";
+import RequestMedia from "../Request/Media";
+
+
 
 const SubScreenWrapper = ({
   navigation,
@@ -39,23 +45,6 @@ const SubScreenWrapper = ({
 );
 
 
-// const DashboardScreen = ({
-//   navigation,
-// }: {
-//   navigation: NavigationScreenProp<NavigationState>;  
-// }) => (
-//   <ScrollView>
-//       <SafeAreaView forceInset={{ top: 'always' }}>      
-//         <Home navigation={navigation} />
-//         <ButtonWithMargin onPress={() => navigation.openDrawer()} title="Menú" />
-//         <ButtonWithMargin onPress={() => navigation.navigate('Dashboard2')} title="Ir a Dashboard 2" />        
-      
-//       </SafeAreaView>
-//       <StatusBar barStyle="default" />
-//     </ScrollView>
-// );
-
-// DashboardScreen.navigationOptions = navigationOptionsHeader;
 
 
 const Dashboard2Screen = ({
@@ -95,6 +84,21 @@ const DashboardStack = createStackNavigator(
   }
 );
 
+const RequestStack = createStackNavigator(
+  {
+    RequestInit: { screen: RequestInit },
+    RequestMedia: { screen: RequestMedia },
+  },
+  {
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => (
+        <Text>XX</Text>
+      ),
+      drawerLabel: 'Pedidoddd'
+    },
+  }
+);
+
 
 // export const navigationOptionsHeader=({navigation})=>{
   
@@ -121,9 +125,13 @@ const MainNavigation = createDrawerNavigator(
       path: '/profile',
       screen: ProfileStack,
     },
-    Test: {
-      path: '/test',
-      screen: Camera,
+    Request: {
+      path: '/request',
+      screen: RequestStack,
+    },    
+    Agenda: {
+      path: '/agenda',
+      screen: Agenda,
     },
   },
 
