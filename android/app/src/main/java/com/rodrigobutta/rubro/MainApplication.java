@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
-// import org.reactnative.camera.RNCameraPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -43,16 +42,15 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
-                    new MainReactPackage(),
-            new PickerPackage(),
-            // new RNCameraPackage(),
-            new BlurViewPackage(),
-            new RNGoogleSigninPackage(),
-            new VectorIconsPackage(),
-            new FBSDKPackage(mCallbackManager),
-                    new RNFirebasePackage(),
-                    new RNGestureHandlerPackage(),
-                    new RNFirebaseAuthPackage() // <-- Add this line
+                new MainReactPackage(),
+                new PickerPackage(),
+                new BlurViewPackage(),
+                new RNGoogleSigninPackage(),
+                new VectorIconsPackage(),
+                new FBSDKPackage(mCallbackManager),
+                new RNFirebasePackage(),
+                new RNGestureHandlerPackage(),
+                new RNFirebaseAuthPackage() 
             );
         }
 

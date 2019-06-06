@@ -42,6 +42,7 @@ export default class Init extends React.Component<any, any>{
           </Text>
 
           <Button onPress={() => navigation.navigate('RequestSearch')} title="Nueva solicitud" />
+          <View style={{ height: 30 }} />
           <Button onPress={() => navigation.navigate('RequestMedia')} title="Fotos y eso" />
             
         </View>

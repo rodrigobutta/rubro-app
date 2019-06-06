@@ -8,6 +8,7 @@ import {
   ScrollView, 
   Alert,
   Image, 
+  Button,
   NativeModules
 } from 'react-native';
 // import Camera from 'react-native-camera';
@@ -21,14 +22,19 @@ import Icon from 'react-native-vector-icons/Ionicons'
 // let { height, width } = Dimensions.get('window');
 // let orientation = height > width ? 'Portrait' : 'Landscape';
 
+import ActionSheet from 'react-native-actionsheet';
+
+
 export default class Media extends React.Component<any, any>{     
   constructor() {
     super();
     this.state = {
-      image: null,
-      images: null
+      images: []
     };
   }
+
+
+
   pickSingleWithCamera(cropping, mediaType='photo') {
     ImagePicker.openCamera({
       cropping: cropping,
@@ -38,91 +44,24 @@ export default class Media extends React.Component<any, any>{
       mediaType,
     }).then(image => {
       console.log('received image', image);
-      this.setState({
-        image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
-        images: null
+
+
+      const newImage = {uri: image.path, width: image.width, height: image.height, mime: image.mime};
+
+      this.setState(state => {
+        const images = state.images.concat(newImage);
+  
+        return {
+          images,
+          newImage,
+        };
       });
+
+
+
     }).catch(e => alert(e));
   }
 
-  pickSingleBase64(cropit) {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 300,
-      cropping: cropit,
-      includeBase64: true,
-      includeExif: true,
-    }).then(image => {
-      console.log('received base64 image');
-      this.setState({
-        image: {uri: `data:${image.mime};base64,`+ image.data, width: image.width, height: image.height},
-        images: null
-      });
-    }).catch(e => alert(e));
-  }
-
-  cleanupImages() {
-    ImagePicker.clean().then(() => {
-      console.log('removed tmp images from tmp directory');
-    }).catch(e => {
-      alert(e);
-    });
-  }
-
-  cleanupSingleImage() {
-    let image = this.state.image || (this.state.images && this.state.images.length ? this.state.images[0] : null);
-    console.log('will cleanup image', image);
-
-    ImagePicker.cleanSingle(image ? image.uri : null).then(() => {
-      console.log(`removed tmp image ${image.uri} from tmp directory`);
-    }).catch(e => {
-      alert(e);
-    })
-  }
-
-  cropLast() {
-    if (!this.state.image) {
-      return Alert.alert('No image', 'Before open cropping only, please select image');
-    }
-
-    ImagePicker.openCropper({
-      path: this.state.image.uri,
-      width: 200,
-      height: 200
-    }).then(image => {
-      console.log('received cropped image', image);
-      this.setState({
-        image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
-        images: null
-      });
-    }).catch(e => {
-      console.log(e);
-      Alert.alert(e.message ? e.message : e);
-    });
-  }
-
-  pickSingle(cropit, circular=false, mediaType) {
-    ImagePicker.openPicker({
-      width: 500,
-      height: 500,
-      cropping: cropit,
-      cropperCircleOverlay: circular,
-      compressImageMaxWidth: 1000,
-      compressImageMaxHeight: 1000,
-      compressImageQuality: 1,
-      compressVideoPreset: 'MediumQuality',
-      includeExif: true,
-    }).then(image => {
-      console.log('received image', image);
-      this.setState({
-        image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
-        images: null
-      });
-    }).catch(e => {
-      console.log(e);
-      Alert.alert(e.message ? e.message : e);
-    });
-  }
 
   pickMultiple() {
     ImagePicker.openPicker({
@@ -132,7 +71,6 @@ export default class Media extends React.Component<any, any>{
       forceJpg: true,
     }).then(images => {
       this.setState({
-        image: null,
         images: images.map(i => {
           console.log('received image', i);
           return {uri: i.path, width: i.width, height: i.height, mime: i.mime};
@@ -178,46 +116,69 @@ export default class Media extends React.Component<any, any>{
     return this.renderImage(image);
   }
 
+
+  showActionSheet = () => {    
+    this.ActionSheet.show();
+  };
+
+  actionSheetItemOnPress = (index) => {    
+
+    switch (index) {
+      case 0:
+        this.pickSingleWithCamera(false)
+        break;
+
+      case 1:
+        this.pickSingleWithCamera(false, mediaType='video')
+        break;
+
+      case 2:
+        this.pickMultiple()
+        break;
+
+      default:
+        break;
+    }
+
+  };
+
+
   render() {
+
+    var optionArray = [
+      'Cámara de fotos',
+      'Camara de video',
+      'Galeria de imagenes',      
+      'Cancelar',
+    ];
+
     return (<View style={styles.container}>
       <ScrollView>
         {this.state.image ? this.renderAsset(this.state.image) : null}
         {this.state.images ? this.state.images.map(i => <View key={i.uri}>{this.renderAsset(i)}</View>) : null}
       </ScrollView>
 
-      <TouchableOpacity onPress={() => this.pickSingleWithCamera(false)} style={styles.button}>
-        <Text style={styles.text}>Select Single Image With Camera</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.pickSingleWithCamera(false, mediaType='video')} style={styles.button}>
-        <Text style={styles.text}>Select Single Video With Camera</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.pickSingleWithCamera(true)} style={styles.button}>
-        <Text style={styles.text}>Select Single With Camera With Cropping</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.pickSingle(false)} style={styles.button}>
-        <Text style={styles.text}>Select Single</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.cropLast()} style={styles.button}>
-        <Text style={styles.text}>Crop Last Selected Image</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.pickSingleBase64(false)} style={styles.button}>
-        <Text style={styles.text}>Select Single Returning Base64</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.pickSingle(true)} style={styles.button}>
-        <Text style={styles.text}>Select Single With Cropping</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.pickSingle(true, true)} style={styles.button}>
-        <Text style={styles.text}>Select Single With Circular Cropping</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={this.pickMultiple.bind(this)} style={styles.button}>
-        <Text style={styles.text}>Select Multiple</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={this.cleanupImages.bind(this)} style={styles.button}>
-        <Text style={styles.text}>Cleanup All Images</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={this.cleanupSingleImage.bind(this)} style={styles.button}>
-        <Text style={styles.text}>Cleanup Single Image</Text>
-      </TouchableOpacity>
+
+      {/* <Button onPress={() => this.pickSingleWithCamera(false)} title={"Foto"} />
+      <View style={{ height: 30 }} />
+      <Button onPress={() => this.pickSingleWithCamera(false, mediaType='video')} title={"Video"} />
+      <View style={{ height: 30 }} />
+      <Button onPress={this.pickMultiple.bind(this)} title={"Galeria"} /> */}
+
+      <Button
+          onPress={this.showActionSheet}
+          title="Agregar"
+        />
+        <ActionSheet
+          ref={o => (this.ActionSheet = o)}          
+          title={'Agregar..'}          
+          options={optionArray}          
+          cancelButtonIndex={3}          
+          // destructiveButtonIndex={1}
+          onPress={this.actionSheetItemOnPress}
+        />
+
+
     </View>);
   }
 

@@ -49,59 +49,73 @@ export default class Search extends React.Component<any, any>{
     const items = [
       {
         "id": "1",
-        "name": "Coca Cola Light"
+        "name": "Plomeria",
+        "type": "1"
       },
       {
         "id": "2",
-        "name": "Coca Cola Zero"
+        "name": "Cerrajeria",
+        "type": "1"
       },
       {
         "id": "3",
-        "name": "Fanta"
+        "name": "Pintura",
+        "type": "1"
       },
       {
         "id": "4",
-        "name": "Fanta Zero"
+        "name": "Albañilería",
+        "type": "1"
       },
       {
         "id": "5",
-        "name": "Sprite"
+        "name": "Carpintería",
+        "type": "1"
       },
       {
         "id": "6",
-        "name": "Sprite Light"
+        "name": "Electricidad e Iluminación",
+        "type": "1"
       },
       {
         "id": "7",
-        "name": "Ice Tea Peach"
+        "name": "cambio de cerradura",
+        "type": "2"
       },
       {
         "id": "8",
-        "name": "Ice Tea Lemon"
+        "name": "colocación de ventana",
+        "type": "2"
       },
       {
         "id": "9",
-        "name": "Ice Tea Peach Light"
+        "name": "colocación de puerta",
+        "type": "2"
       },
       {
         "id": "10",
-        "name": "Ice Tea Lemon Light"
+        "name": "colocación de artefacto de luz",
+        "type": "2"
       },
       {
         "id": "11",
-        "name": "Ice Tea 222"
+        "name": "destapar sanitario",
+        "type": "2"
       },
       {
         "id": "12",
-        "name": "Ice Tea Lemon"
+        "name": "colocación de grifería",
+        "type": "2"
       },
       {
         "id": "13",
-        "name": "Ice Tea Peacdsfdsfsh Light"
+        "name": "humedad",
+        "type": "2"
       },
       {
         "id": "14",
-        "name": "Ice Tea43434 Lemon Light"
+        "name": "cerramientos",
+        "type": "1"
       }
     ]
 
