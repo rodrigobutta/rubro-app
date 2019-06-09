@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {NavigationActions} from 'react-navigation';
 import LoginView from './LoginView';
 
-import * as AuthStateActions from '../auth/AuthState';
+import * as AuthStateActions from '../../redux/actions/AuthState';
 
 export default connect(
   state => ({

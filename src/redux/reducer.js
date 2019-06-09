@@ -8,7 +8,8 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 import NavigatorStateReducer from '../modules/navigator/NavigatorState';
 import CounterStateReducer from '../modules/counter/CounterState';
 import SessionStateReducer, {RESET_STATE} from '../modules/session/SessionState';
-import AuthStateReducer from '../modules/auth/AuthState';
+import AuthStateReducer from './actions/AuthState';
+import LocationStateReducer from './actions/LocationState';
 import RequestStateReducer from '../modules/request/RequestState';
 
 
@@ -27,7 +28,8 @@ const reducers = {
   navigatorState: NavigatorStateReducer,
   session: SessionStateReducer,
   auth: persistReducer(persistConfig, AuthStateReducer),
-  request: persistReducer(persistConfig, RequestStateReducer)
+  request: persistReducer(persistConfig, RequestStateReducer),
+  location: persistReducer(persistConfig, LocationStateReducer),
 };
 
 export default combineReducers(

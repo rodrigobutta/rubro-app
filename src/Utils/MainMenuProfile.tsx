@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, ListView, Image } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+// import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const MainMenuProfile = ({ profileUrl, username, email }) =>
   <View style={{flexDirection:'row', padding:10}}>

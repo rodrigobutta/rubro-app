@@ -10,7 +10,7 @@ import LoginRouter from "./utils/LoginRouter";
 import { MainRouter } from "./utils/router";
 import {store, persistor} from './redux/store';
 import { API_URL } from './config/enviroment';
-import {setToken, setUser, resetToken, resetUser} from './modules/auth/AuthState';
+import {setToken, setUser, resetToken, resetUser} from './redux/actions/AuthState';
 
 
 class MainApp extends React.Component {  

@@ -6,13 +6,31 @@ const CommonStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: Constants.colors.themeBGColor,
   },
+  page: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  scrollView: {    
+    width: "100%"
+  },
   textInput: {
     marginTop: 20,
     width: "90%",
     height: 40,
     borderColor: Constants.colors.borderColor,
     borderWidth: 2,
-    borderRadius: 5,
+    borderRadius: 3,
+    paddingLeft: 10,
+    color:Constants.colors.textColor,
+    fontSize:16
+  },
+  textArea: {
+    marginTop: 20,
+    width: "90%",    
+    borderColor: Constants.colors.borderColor,
+    borderWidth: 2,
+    borderRadius: 3,
     paddingLeft: 10,
     color:Constants.colors.textColor,
     fontSize:16

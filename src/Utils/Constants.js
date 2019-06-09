@@ -7,7 +7,7 @@ module.exports = {
   colors: {
     themeBGColor: "#ffffff",
     buttonBGColor: "#ccc",
-    borderColor: "#777",
+    borderColor: "#999",
     textColor: "#111"
   },
   keyLoginNav: {
