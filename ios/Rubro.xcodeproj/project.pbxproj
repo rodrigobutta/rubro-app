@@ -12,7 +12,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		067E5E2323FE4D63A2DF6C9A /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44DF279B227741FDAA9D8885 /* FontAwesome5_Brands.ttf */; };
-		089D05444F602378D5D581ED /* libPods-FirebaseAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0FE5E1F252095B2758875BA /* libPods-FirebaseAuth.a */; };
+		089D05444F602378D5D581ED /* libPods-Rubro.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0FE5E1F252095B2758875BA /* libPods-Rubro.a */; };
 		11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -356,18 +356,18 @@
 		00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
 		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* FirebaseAuthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirebaseAuthTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* RubroTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RubroTests.m; sourceTree = "<group>"; };
 		049AE28F4D164FCFB20FA967 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		0925E737E1A9486F8996656A /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* FirebaseAuth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseAuth.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FirebaseAuth/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = FirebaseAuth/AppDelegate.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Rubro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rubro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Rubro/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Rubro/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FirebaseAuth/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = FirebaseAuth/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = FirebaseAuth/main.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Rubro/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Rubro/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Rubro/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1A180D300F4146BBA8036CD9 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		2A83A2A1AC7F4BFC81A2A898 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -375,7 +375,7 @@
 		35D5E4154C2E47018C9ED999 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		39B67A636DC646CA95F2AAC6 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		3A089385DB59484CB5206BF7 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
-		3E2994650303FAF2368CC443 /* Pods-FirebaseAuth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseAuth.release.xcconfig"; path = "Pods/Target Support Files/Pods-FirebaseAuth/Pods-FirebaseAuth.release.xcconfig"; sourceTree = "<group>"; };
+		3E2994650303FAF2368CC443 /* Pods-Rubro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rubro.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rubro/Pods-Rubro.release.xcconfig"; sourceTree = "<group>"; };
 		44DF279B227741FDAA9D8885 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		762C71B5729C4AFFB3F04F4A /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
@@ -401,10 +401,10 @@
 		9AF3FE4A2237E6BE00C4C53A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9AF3FE4C2237E6E500C4C53A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9DC0C5B0038644D19AA05E97 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
-		A0FE5E1F252095B2758875BA /* libPods-FirebaseAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FirebaseAuth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0FE5E1F252095B2758875BA /* libPods-Rubro.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Rubro.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB1465F7BB445FAADFF169B /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		C06C0FF18FC896BC40BD15CA /* Pods-FirebaseAuth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseAuth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FirebaseAuth/Pods-FirebaseAuth.debug.xcconfig"; sourceTree = "<group>"; };
+		C06C0FF18FC896BC40BD15CA /* Pods-Rubro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rubro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rubro/Pods-Rubro.debug.xcconfig"; sourceTree = "<group>"; };
 		C4D13C660ED644D4A4EA3782 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		CC9D622D6E4E4226B3F7874E /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		CDD9518AA77A439F88A7D458 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -440,7 +440,7 @@
 				9A9BC4562237901E00BB351A /* Bolts.framework in Frameworks */,
 				9A9BC4542237901E00BB351A /* FBSDKShareKit.framework in Frameworks */,
 				CF774F195C944CFBA74524EB /* libRNGestureHandler.a in Frameworks */,
-				089D05444F602378D5D581ED /* libPods-FirebaseAuth.a in Frameworks */,
+				089D05444F602378D5D581ED /* libPods-Rubro.a in Frameworks */,
 				F5270BC51C4C4D5A87B0CDDF /* libRNFirebase.a in Frameworks */,
 				3D0138C5E3C74101905C622F /* libRNPopoverMenu.a in Frameworks */,
 			);
@@ -491,13 +491,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		00E356EF1AD99517003FC87E /* FirebaseAuthTests */ = {
+		00E356EF1AD99517003FC87E /* RubroTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* FirebaseAuthTests.m */,
+				00E356F21AD99517003FC87E /* RubroTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = FirebaseAuthTests;
+			path = RubroTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -528,7 +528,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* FirebaseAuth */ = {
+		13B07FAE1A68108700A75B9A /* Rubro */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -540,7 +540,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = FirebaseAuth;
+			name = Rubro;
 			sourceTree = "<group>";
 		};
 		146834001AC3E56700842450 /* Products */ = {
@@ -578,7 +578,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				A0FE5E1F252095B2758875BA /* libPods-FirebaseAuth.a */,
+				A0FE5E1F252095B2758875BA /* libPods-Rubro.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -586,8 +586,8 @@
 		514AE94E8536D81327C57903 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C06C0FF18FC896BC40BD15CA /* Pods-FirebaseAuth.debug.xcconfig */,
-				3E2994650303FAF2368CC443 /* Pods-FirebaseAuth.release.xcconfig */,
+				C06C0FF18FC896BC40BD15CA /* Pods-Rubro.debug.xcconfig */,
+				3E2994650303FAF2368CC443 /* Pods-Rubro.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -649,9 +649,9 @@
 			children = (
 				9AF3FE442237E61000C4C53A /* GoogleSignIn.bundle */,
 				9A3FC3EC22366E3C0055D5F6 /* JavaScriptCore.framework */,
-				13B07FAE1A68108700A75B9A /* FirebaseAuth */,
+				13B07FAE1A68108700A75B9A /* Rubro */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* FirebaseAuthTests */,
+				00E356EF1AD99517003FC87E /* RubroTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				9A9E5FC02226BFF000352600 /* Recovered References */,
@@ -666,7 +666,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* FirebaseAuth.app */,
+				13B07F961A680F5B00A75B9A /* Rubro.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -765,9 +765,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* FirebaseAuth */ = {
+		13B07F861A680F5B00A75B9A /* Rubro */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FirebaseAuth" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Rubro" */;
 			buildPhases = (
 				AA955777EA634023D0BCB838 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -780,9 +780,9 @@
 			);
 			dependencies = (
 			);
-			name = FirebaseAuth;
+			name = Rubro;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* FirebaseAuth.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Rubro.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -799,7 +799,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FirebaseAuth" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Rubro" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -882,7 +882,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* FirebaseAuth */,
+				13B07F861A680F5B00A75B9A /* Rubro */,
 			);
 		};
 /* End PBXProject section */
@@ -1242,7 +1242,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FirebaseAuth-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Rubro-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1257,7 +1257,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FirebaseAuth/Pods-FirebaseAuth-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Rubro/Pods-Rubro-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/gRPC/gRPCCertificates.bundle",
 			);
@@ -1270,7 +1270,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FirebaseAuth/Pods-FirebaseAuth-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Rubro/Pods-Rubro-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1294,7 +1294,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = FirebaseAuth;
+			path = Rubro;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1302,7 +1302,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C06C0FF18FC896BC40BD15CA /* Pods-FirebaseAuth.debug.xcconfig */;
+			baseConfigurationReference = C06C0FF18FC896BC40BD15CA /* Pods-Rubro.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1321,11 +1321,11 @@
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios",
 					"$(SRCROOT)\..\node_modules\react-native-popover-menu\ios",
 				);
-				INFOPLIST_FILE = FirebaseAuth/Info.plist;
+				INFOPLIST_FILE = Rubro/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/FirebaseAuth\"",
+					"\"$(SRCROOT)/Rubro\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1333,14 +1333,14 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rodrigobutta.rubro;
-				PRODUCT_NAME = FirebaseAuth;
+				PRODUCT_NAME = Rubro;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E2994650303FAF2368CC443 /* Pods-FirebaseAuth.release.xcconfig */;
+			baseConfigurationReference = 3E2994650303FAF2368CC443 /* Pods-Rubro.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1358,11 +1358,11 @@
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios",
 					"$(SRCROOT)\..\node_modules\react-native-popover-menu\ios",
 				);
-				INFOPLIST_FILE = FirebaseAuth/Info.plist;
+				INFOPLIST_FILE = Rubro/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/FirebaseAuth\"",
+					"\"$(SRCROOT)/Rubro\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1370,7 +1370,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rodrigobutta.rubro;
-				PRODUCT_NAME = FirebaseAuth;
+				PRODUCT_NAME = Rubro;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1477,7 +1477,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FirebaseAuth" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Rubro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1486,7 +1486,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FirebaseAuth" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Rubro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

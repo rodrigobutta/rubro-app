@@ -78,6 +78,9 @@ export default class FBLogin extends Component {
       const firebaseUserCredential = await firebase
         .auth()
         .signInWithCredential(credential);
+
+        this.setState({ spinner: false });
+        
     } catch (error) {
       this.setState({ spinner: false });
       setTimeout(() => {

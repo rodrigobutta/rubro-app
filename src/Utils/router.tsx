@@ -22,9 +22,9 @@ import EditProfile from "../Profile/Edit";
 
 import Agenda from '../modules/agenda/agenda';
 
-import RequestInit from "../Request/Init";
-import RequestMedia from "../Request/Media";
-import RequestSearch from "../Request/Search";
+import RequestInitModule from "../modules/request/InitModule";
+import RequestFormModule from "../modules/request/FormModule";
+import RequestViewModule from "../modules/request/ViewModule";
 
 
 
@@ -87,9 +87,9 @@ const DashboardStack = createStackNavigator(
 
 const RequestStack = createStackNavigator(
   {
-    RequestInit: { screen: RequestInit },
-    RequestSearch: { screen: RequestSearch },
-    RequestMedia: { screen: RequestMedia },
+    RequestInitModule: { screen: RequestInitModule },
+    RequestViewModule: { screen: RequestViewModule },
+    RequestFormModule: { screen: RequestFormModule },
   },
   {
     navigationOptions: {

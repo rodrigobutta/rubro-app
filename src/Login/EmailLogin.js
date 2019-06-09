@@ -50,7 +50,10 @@ export default class EmailLogin extends Component {
       firebase
         .auth()
         .signInWithEmailAndPassword(loginEmail, loginPassword)
-        .then()
+        .then(firebaseUser => {
+          // console.log(firebaseUser)
+          this.setState({ spinner: false });
+        })
         .catch(error => {
           this.setState({ spinner: false });
           setTimeout(() => {

@@ -9,6 +9,7 @@ import NavigatorStateReducer from '../modules/navigator/NavigatorState';
 import CounterStateReducer from '../modules/counter/CounterState';
 import SessionStateReducer, {RESET_STATE} from '../modules/session/SessionState';
 import AuthStateReducer from '../modules/auth/AuthState';
+import RequestStateReducer from '../modules/request/RequestState';
 
 
 const persistConfig = {
@@ -25,8 +26,8 @@ const reducers = {
   counter: CounterStateReducer,
   navigatorState: NavigatorStateReducer,
   session: SessionStateReducer,
-  // auth: AuthStateReducer
-  auth: persistReducer(persistConfig, AuthStateReducer)
+  auth: persistReducer(persistConfig, AuthStateReducer),
+  request: persistReducer(persistConfig, RequestStateReducer)
 };
 
 export default combineReducers(

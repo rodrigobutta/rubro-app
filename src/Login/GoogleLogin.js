@@ -46,6 +46,9 @@ export default class GoogleLogin extends Component {
       const currentUser = await firebase
         .auth()
         .signInWithCredential(credential);
+        
+        this.setState({ spinner: false });
+
     } catch (error) {
       this.setState({ spinner: false });
       setTimeout(() => {

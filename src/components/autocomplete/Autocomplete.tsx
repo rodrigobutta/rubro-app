@@ -34,11 +34,15 @@ export default class Autocomplete extends React.Component<PropsType, any> {
     changeSearchValue (searchValue) {
         const { startSuggestingFrom } = this.props
         this.setState({ searchValue }, () => {
+
+            searchValue = searchValue.trim().toLowerCase();
+
             if (searchValue.length >= startSuggestingFrom) {
                 this.search()
             } else if (searchValue.length === 0) {
                 this.setState({ showResults: false })
             }
+
         })
     }
 
