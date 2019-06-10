@@ -218,7 +218,6 @@ class FormModule extends React.Component<any, any>{
 
             <TextInput
               multiline={false}
-              numberOfLines={4}
               onChangeText={(subject) => this.setState({subject})}
               value={this.state.subject}
               style={[CommonStyles.textInput]}
