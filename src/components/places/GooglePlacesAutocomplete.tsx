@@ -259,7 +259,7 @@ export default class GooglePlacesAutocomplete extends Component {
 
         if (responseJSON.status === 'OK') {
           if (this._isMounted === true) {
-            const details = responseJSON.result;
+            const result = responseJSON.result;
             // this._disableRowLoaders();
 
             this.setState({
@@ -272,8 +272,16 @@ export default class GooglePlacesAutocomplete extends Component {
             //   text: this._renderDescription( rowData ),
             // });
 
+            console.log(result);
+
+            const details = this.getAddressObject(result.address_components);
+
+            const geo = result.geometry.location;
+
+            const formatedName = result.formatted_address;
+
             // delete rowData.isLoading;
-            this.props.onPress(rowData, details);
+            this.props.onPress(rowData, geo, formatedName, details);
           }
         } else {
           
@@ -289,7 +297,7 @@ export default class GooglePlacesAutocomplete extends Component {
             spinner: false
           });
 
-          this.props.onPress(rowData, null);
+          this.props.onPress(rowData, null, null, null);
 
           // if (!this.props.onNotFound) {
           //   console.warn('google places autocomplete: ' + responseJSON.status);
@@ -307,7 +315,7 @@ export default class GooglePlacesAutocomplete extends Component {
           spinner: false
         });
 
-        this.props.onPress(rowData, null);
+        this.props.onPress(rowData, null, null, null);
 
         // this._disableRowLoaders();
 
@@ -326,7 +334,8 @@ export default class GooglePlacesAutocomplete extends Component {
       key: this.props.query.key,
       placeid: rowData.place_id,
       language: this.props.query.language,
-      ...this.props.GooglePlacesDetailsQuery,
+      // ...this.props.GooglePlacesDetailsQuery,
+      fields: 'formatted_address,geometry/location,address_components'
     }));
 
     if (this.props.query.origin !== null) {
@@ -445,6 +454,58 @@ export default class GooglePlacesAutocomplete extends Component {
 
 
   }
+
+
+
+
+getAddressObject(address_components) {
+  var ShouldBeComponent = {
+    home: ["street_number"],
+    postal_code: ["postal_code"],
+    street: ["street_address", "route"],
+    region: [
+      "administrative_area_level_1",
+      "administrative_area_level_2",
+      "administrative_area_level_3",
+      "administrative_area_level_4",
+      "administrative_area_level_5"
+    ],
+    city: [
+      "locality",
+      "sublocality",
+      "sublocality_level_1",
+      "sublocality_level_2",
+      "sublocality_level_3",
+      "sublocality_level_4"
+    ],
+    country: ["country"]
+  };
+
+  var address = {
+    home: "",
+    postal_code: "",
+    street: "",
+    region: "",
+    city: "",
+    country: ""
+  };
+  address_components.forEach(component => {
+    for (var shouldBe in ShouldBeComponent) {
+      if (ShouldBeComponent[shouldBe].indexOf(component.types[0]) !== -1) {
+        
+        address[shouldBe] = component.short_name; // en el caso de Buenos aires y Capital el long_name es SIEMPRe "Buenos Aires", pero si uso short_name tengo "CABA" y "Buenos Aires"
+        // if (shouldBe === "country") {
+        //   address[shouldBe] = component.short_name;
+        // } else {
+        //   address[shouldBe] = component.long_name;
+        // }
+
+
+      }
+    }
+  });
+  return address;
+}
 
 
 

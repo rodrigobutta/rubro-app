@@ -100,23 +100,28 @@ class Location extends React.Component<any, any>{
   };
 
 
-  newAddressSelected = (data,details) => {    
+  newAddressSelected = (place, geo, formattedName, details) => {    
     
-    console.log(data)
+    console.log(place)
+    console.log(geo)
+    console.log(formattedName)
     console.log(details)
     
     const item = {
-      title: data.structured_formatting.main_text,
-      subtitle: data.structured_formatting.secondary_text,
+      title: place.structured_formatting.main_text,
+      subtitle: place.structured_formatting.secondary_text,
+      address: place.description,
       place: {
-        id: data.place_id ,
-        address: data.description
+        id: place.place_id ,
+        formattedName: formattedName,
+        ...details,
+        ...geo
       }      
     }
 
     console.log(item)
 
-    // this.props.locationStateActions.addLocation(item);
+    this.props.locationStateActions.addLocation(item);
 
   };
 
@@ -133,7 +138,7 @@ class Location extends React.Component<any, any>{
         <View style={stylesList.row}>
           <View style={stylesList.row_cell_timeplace}>
             <Text style={stylesList.title}>{item.content.title}</Text>
-            <Text style={stylesList.id}>{item.id}</Text>
+            <Text style={stylesList.id}>{item.content.subtitle || ''}</Text>
           </View>
           <Icon 
                 size={32} 
@@ -190,7 +195,7 @@ class Location extends React.Component<any, any>{
               // renderDescription={row =>
               //   row.description || row.formatted_address || row.name
               // }
-              onPress={(data,details) => this.newAddressSelected(data,details)}
+              onPress={(place, geo, formattedName, details) => this.newAddressSelected(place, geo, formattedName, details)}
               getDefaultValue={() => {
                 return ''; // text input default value
               }}
@@ -224,7 +229,7 @@ class Location extends React.Component<any, any>{
               }}
               GooglePlacesDetailsQuery={{
                   // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-                  fields: 'formatted_address,geometry/location,address_components',
+                  // fields: 'formatted_address,geometry/location,address_components',
               }}
               filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
               // predefinedPlaces={[homePlace, workPlace]}
