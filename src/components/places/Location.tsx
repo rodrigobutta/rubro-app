@@ -6,6 +6,7 @@ import {
   TextInput,
   ScrollView, 
   SafeAreaView,
+  TouchableOpacity,
   FlatList,
   Button
 } from 'react-native';
@@ -17,10 +18,13 @@ import { FlatGrid, SectionGrid } from 'react-native-super-grid';
 import { connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Spinner from "react-native-loading-spinner-overlay";
+import ActionSheet from 'react-native-actionsheet';
 
 import CommonStyles from "../../utils/CommonStyles";
 import * as LocationStateActions from '../../redux/actions/LocationState';
 
+
+import _ from 'lodash';
 
 import { GooglePlacesAutocomplete } from '../../components/places/GooglePlacesAutocomplete';
 
@@ -36,7 +40,8 @@ class Location extends React.Component<any, any>{
   constructor() {
     super();
     this.state = {     
-      editMode: false
+      editMode: false,
+      currentItem: null
     };
   }
 
@@ -49,9 +54,11 @@ class Location extends React.Component<any, any>{
     this.setState({ editMode: false })
   }
 
-  addLocation = () => {
+  addLocation = (object) => {
     console.log('addLocation')
 
+
+    console.log(object)
 
     const item = {title: 'item 666' }
 
@@ -61,40 +68,78 @@ class Location extends React.Component<any, any>{
   }
 
 
-  removeLocation = (itemId) => {
-    console.log('removeLocation')
-    console.log(itemId)
 
-    this.props.locationStateActions.removeLocation(itemId);
+  showItemActionSheet = (item) => {    
+    this.setState({ currentItem: item })
+    this.ActionSheet.show();
+  };
 
-  }
+  actionSheetItemOnPress = (index) => {    
 
-  updateLocation = (itemId) => {
-    console.log('updateLocation')
-    console.log(itemId)
+    const id = this.state.currentItem.id;
+
+    switch (index) {
+      case 0:
+
+        this.props.locationStateActions.removeLocation(id);
+        break;
+
+      case 1:
+
+        const item = {title: 'item AGEGADO' }
+
+        this.props.locationStateActions.updateLocation(id, item);
+        
+        
+        break;
+
+      default:
+        break;
+    }
+
+  };
 
 
-    const item = {title: 'item 2 updated' }
+  newAddressSelected = (data,details) => {    
+    
+    console.log(data)
+    console.log(details)
+    
+    const item = {
+      title: data.structured_formatting.main_text,
+      subtitle: data.structured_formatting.secondary_text,
+      place: {
+        id: data.place_id ,
+        address: data.description
+      }      
+    }
 
-    this.props.locationStateActions.updateLocation(itemId, item);
+    console.log(item)
 
-  }
+    // this.props.locationStateActions.addLocation(item);
 
+  };
 
 
   _renderItem = ({item}) => (
  
-      <View style={stylesList.row}>
-        <View style={stylesList.row_cell_timeplace}>
-          <Text style={stylesList.row_time}>{'23232'}</Text>
-          <Text style={stylesList.row_place}>{item.title}</Text>
+      <TouchableOpacity
+        accessibilityLabel={item.content.title}
+        accessibilityRole="button"                        
+        // onPress={onPress}
+        onLongPress={this.showItemActionSheet.bind(this, item)}
+        
+      >
+        <View style={stylesList.row}>
+          <View style={stylesList.row_cell_timeplace}>
+            <Text style={stylesList.title}>{item.content.title}</Text>
+            <Text style={stylesList.id}>{item.id}</Text>
+          </View>
+          <Icon 
+                size={32} 
+                name={'ios-arrow-forward'} />              
         </View>
-        <Icon 
-              size={32} 
-              name={'ios-arrow-forward'} />
-        <Text style={stylesList.row_cell_temp}>{'asa'}</Text>
-      </View>
-   
+      </TouchableOpacity>
   );
 
 
@@ -103,8 +148,16 @@ class Location extends React.Component<any, any>{
     const {byId,byHash} = this.props.location;
     const {editMode} = this.state;
     
+    var optionArray = [
+      'Eliminar',
+      'Agregar a Favoritas',
+      'Cancelar'      
+    ];
+
+
     return (
   
+
   
       <View>
 
@@ -121,90 +174,106 @@ class Location extends React.Component<any, any>{
             backdropTransitionInTiming={600}
             backdropTransitionOutTiming={600}
         >
+
+          <ScrollView style={CommonStyles.scrollView}>
           <View style={[styles.modalView]}>
 
 
-            {byId.map((item, index) => (
+
+            <GooglePlacesAutocomplete
+              placeholder='Escribir calle y altura..'
+              minLength={3} // minimum length of text to search
+              autoFocus={false}
+              fetchDetails={true}
+              returnKeyType={"search"}
+              listViewDisplayed="false"
+              // renderDescription={row =>
+              //   row.description || row.formatted_address || row.name
+              // }
+              onPress={(data,details) => this.newAddressSelected(data,details)}
+              getDefaultValue={() => {
+                return ''; // text input default value
+              }}
+              query={{
+                // available options: https://developers.google.com/places/web-service/autocomplete
+                key: 'AIzaSyCwUBwK3A697kLrXT5FnFgbkCshtrpZTOo',
+                language: 'en', // language of the results
+                // types: 'geocode', // default: 'geocode' ---- (cities)
+              }}
+              styles={{              
+                textInputContainer: {
+                  width: '100%'
+                },
+                description: {
+                  fontWeight: 'bold',
+                },
+                predefinedPlacesDescription: {
+                  color: '#1faadb',
+                },
+              }}
+              currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list
+              // currentLocationLabel="Current location"
+              nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+              GoogleReverseGeocodingQuery={{
+                // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+              }}
+              GooglePlacesSearchQuery={{
+                // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+                rankby: 'distance',
+                // types: 'food',
+              }}
+              GooglePlacesDetailsQuery={{
+                  // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+                  fields: 'formatted_address,geometry/location,address_components',
+              }}
+              filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+              // predefinedPlaces={[homePlace, workPlace]}
+              predefinedPlacesAlwaysVisible={false}
+            />
+
+
+
+            {/* {byId.map((item, index) => (
               <React.Fragment key={index}>
                 <Text>{byHash[item].content.title}</Text>
                 <Button onPress={this.removeLocation.bind(this, item)} title={"Borrar"} />
                 <Button onPress={this.updateLocation.bind(this, item)} title={"Modificar"} />
               </React.Fragment>
-            ))}
+            ))} */}
 
               
               <FlatList
                   style={stylesList.container}
-                  data={byId} 
+                  data={_.values(byHash)} 
                   renderItem={this._renderItem}
                   keyExtractor={(item) => item.id}                  
               />
 
+
+              <ActionSheet
+                ref={o => (this.ActionSheet = o)}          
+                title={'Agregar..'}          
+                options={optionArray}          
+                cancelButtonIndex={2}          
+                // destructiveButtonIndex={1}
+                onPress={this.actionSheetItemOnPress}
+              />
+
               <Button onPress={this.addLocation} title={"Nueva"} />
-              <Button onPress={this.exitEditMode} title={"Cancelar"} />
+           
               <View style={{ height: 30 }} />
                       
         
               
-              {/* <GooglePlacesAutocomplete
-                placeholder='Search'
-                minLength={2} // minimum length of text to search
-                autoFocus={false}
-                fetchDetails={true}
-                returnKeyType={"search"}
-                listViewDisplayed="false"
-                renderDescription={row =>
-                  row.description || row.formatted_address || row.name
-                }
-                onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                  console.log(data);
-                  console.log(details);
-                }}
-                getDefaultValue={() => {
-                  return ''; // text input default value
-                }}
-                query={{
-                  // available options: https://developers.google.com/places/web-service/autocomplete
-                  key: 'AIzaSyCwUBwK3A697kLrXT5FnFgbkCshtrpZTOo',
-                  language: 'en', // language of the results
-                  types: 'geocode', // default: 'geocode' ---- (cities)
-                }}
-                styles={{              
-                  textInputContainer: {
-                    width: '100%'
-                  },
-                  description: {
-                    fontWeight: 'bold',
-                  },
-                  predefinedPlacesDescription: {
-                    color: '#1faadb',
-                  },
-                }}
-                currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-                currentLocationLabel="Current location"
-                nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-                GoogleReverseGeocodingQuery={{
-                  // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-                }}
-                GooglePlacesSearchQuery={{
-                  // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-                  rankby: 'distance',
-                  // types: 'food',
-                }}
-                GooglePlacesDetailsQuery={{
-                    // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-                    fields: 'formatted_address',
-                }}
-                filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-                predefinedPlaces={[homePlace, workPlace]}
-                predefinedPlacesAlwaysVisible={true}
-              /> */}
+
+              <Button onPress={this.exitEditMode} title={"Cancelar"} />
 
           </View>
+          </ScrollView>
+
         </Modal>
         
       </View>
-
 
     );
   }
@@ -245,8 +314,8 @@ const stylesList = StyleSheet.create({
   },
   row: {
     elevation: 1,
-    borderRadius: 2,
-    backgroundColor: '#00ff00',
+    borderRadius: 2,    
+    backgroundColor: '#ffffff',
     flex: 1,
     flexDirection: 'row',  // main axis
     justifyContent: 'flex-start', // main axis
@@ -255,8 +324,8 @@ const stylesList = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 18,
     paddingRight: 16,
-    marginLeft: 14,
-    marginRight: 14,
+    // marginLeft: 14,
+    // marginRight: 14,
     marginTop: 0,
     marginBottom: 6,
   },
@@ -265,20 +334,20 @@ const stylesList = StyleSheet.create({
     flexDirection: 'column',
   },
   row_cell_temp: {
-    color: '#00ff00',
+    color: '#ffff00',
     paddingLeft: 16,
     flex: 0,
     fontSize: 16
   },
-  row_time: {
-    color: '#00ff00',
+  id: {
+    color: '#999999',
     textAlignVertical: 'bottom',
     includeFontPadding: false,
     flex: 0,
     fontSize: 12
   },
-  row_place: {
-    color: '#00ff00',
+  title: {
+    color: '#111111',
     textAlignVertical: 'top',
     includeFontPadding: false,
     flex: 0,

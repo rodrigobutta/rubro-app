@@ -64,6 +64,23 @@ export function updateLocation($id,$item) {
 }
 
 
+// export function getUserInfo(someValue) {
+//   return (dispatch, getState) => {
+//       dispatch({type : "REQUEST_STARTED"});
+
+//     axios
+//     .get(API_URL + '/auth/user')    
+//     .then(
+//       response => dispatch({type : "REQUEST_SUCCEEDED", payload : response})
+//     )
+//     .catch(
+//       error => dispatch({type : "REQUEST_FAILED", error : error})
+//     )
+
+//   };
+// }
+
+
 
 export default function LocationStateReducer(state = INITIAL_STATE, action = {}) {
 
@@ -81,6 +98,15 @@ export default function LocationStateReducer(state = INITIAL_STATE, action = {})
 
     case REMOVE_LOCATION:
       {
+
+        // const { [action.id]: deletedValue, …newState_byHash } = state.byHash;
+        // return { 
+        //    byId: state.byId.filter(item => item !== action.id),      
+        //    byHash: newState_byHash
+        // }
+
+        
+
         const prunedIds = state.byId.filter(item => {
           return item !== action.id // return all the items not matching the action.id
         })
