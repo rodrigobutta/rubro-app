@@ -24,27 +24,62 @@ const UPDATE_LOCATION = 'LocationState/UPDATE_LOCATION';
 
 // Action creators
 
-export function addLocation($item) { 
+// export function addLocation(item) { 
 
-  return (dispatch, getState) => {
+//   return (dispatch, getState) => {
 
-    UUIDGenerator.getRandomUUID().then((uuid) => {
-      console.log(uuid);
+//     UUIDGenerator.getRandomUUID().then((uuid) => {
+//       console.log(uuid);
       
-      dispatch({
-        type: ADD_LOCATION,
-        id: uuid,
-        payload: {
-          id: uuid,
-          content: $item
-        }
-      });
+//       dispatch({
+//         type: ADD_LOCATION,
+//         id: uuid,
+//         payload: {
+//           id: uuid,
+//           content: item
+//         }
+//       });
 
-    });
+//       Promise.resolve()
 
-  }
+//     });
 
+//   }
+
+// }
+
+
+
+// export const addLocation = (item) => dispatch=>{
+  
+//   // return (dispatch, getState) => {
+
+//       dispatch({
+//         type: ADD_LOCATION,
+//         id: uuid,
+//         payload: {
+//           id: uuid,
+//           content: item
+//         }
+//       });
+
+//       return Promise.resolve()
+  
+//   }
+
+
+export function addLocation(uuid, item) {
+  return {
+    type: ADD_LOCATION,
+    id: uuid,
+    payload: {
+      id: uuid,
+      content: item
+    }
+  };
 }
+
+
 
 export function removeLocation($id) {
   return {
@@ -54,13 +89,13 @@ export function removeLocation($id) {
 }
 
 
-export function updateLocation($id,$item) {
+export function updateLocation($id,item) {
   
   return {
     type: UPDATE_LOCATION,
     id: $id,
     payload: {
-      content: $item
+      content: item
     }
   };
 }

@@ -19,6 +19,7 @@ import {bindActionCreators} from 'redux';
 import Spinner from "react-native-loading-spinner-overlay";
 import ActionSheet from 'react-native-actionsheet';
 import _ from 'lodash';
+import UUIDGenerator from 'react-native-uuid-generator';
 
 import CommonStyles from "../../utils/CommonStyles";
 import * as LocationStateActions from '../../redux/actions/LocationState';
@@ -39,7 +40,8 @@ class Location extends React.Component<any, any>{
       detailsModal: false,
       currentItem: null,
       currentItemId: null,
-      editedItem: {}
+      selectedItem: null,
+      editedItem: null
     };
   }
 
@@ -85,11 +87,9 @@ class Location extends React.Component<any, any>{
     this.props.locationStateActions.updateLocation(editedItem.id, editedItem.content);
 
     // const {currentItem, currentItemId, door} = this.state;
-
     // const item = currentItem
     //       item.content.title = item.content.title + ' EDI';
     //       item.content.door = door;
-
     // this.props.locationStateActions.updateLocation(currentItemId, item.content);
 
     this.exitDetailsModal();
@@ -114,8 +114,6 @@ class Location extends React.Component<any, any>{
 
   showItemActionSheet = (item) => {    
 
-    console.log('showItemActionSheet',item)
-
     this.setState(
       { 
         currentItem: item,
@@ -125,6 +123,20 @@ class Location extends React.Component<any, any>{
      )
 
   };
+
+
+  selectItem = (item) => {    
+
+    this.setState(
+      { 
+        selectedItem: item
+      }      
+    )
+
+    this.exitEditModal();
+
+  };
+
 
   actionSheetItemOnPress = (index) => {    
 
@@ -166,17 +178,33 @@ class Location extends React.Component<any, any>{
     }
 
     console.log(item)
-    const newItem = this.props.locationStateActions.addLocation(item);
-    console.log('####################################################################');
-    console.log(newItem);
 
-    this.setState(
-      { 
-        currentItem: item,
-        // currentItemId: newItem.id
-      },
-      () => this.openDetailsModal()
-     )
+
+
+    // const newItem = this.props.locationStateActions.addLocation(item);
+
+    
+    UUIDGenerator.getRandomUUID().then((uuid) => {
+      console.log(uuid);
+
+      this.props.locationStateActions.addLocation(uuid, item);
+
+        
+      // console.log('####################################################################');
+      // console.log(newItem);
+
+      this.setState(
+        { 
+          currentItemId: uuid
+          // currentItemId: newItem.id
+        },
+        () => this.openDetailsModal()
+      )
+
+      
+      
+    });
+
 
 
   };
@@ -187,8 +215,9 @@ class Location extends React.Component<any, any>{
     <TouchableOpacity
       accessibilityLabel={item.content.title}
       accessibilityRole="button"                        
-      // onPress={onPress}
+      onPress={this.selectItem.bind(this, item)}
       onLongPress={this.showItemActionSheet.bind(this, item)}        
+      delayLongPress={1000}
     >
       <View style={stylesList.row}>
         <View style={stylesList.row_cell_timeplace}>
@@ -205,7 +234,7 @@ class Location extends React.Component<any, any>{
   render() {
 
     const {byId,byHash} = this.props.location;
-    const {editModal, detailsModal, currentItem, currentItemId, editedItem} = this.state;
+    const {editModal, detailsModal, currentItem, currentItemId, editedItem, selectedItem} = this.state;
     const editLocation = currentItemId ? this.props.location.byHash[currentItemId] : null;
     
     var optionArray = [
@@ -217,7 +246,11 @@ class Location extends React.Component<any, any>{
     return (  
       <View>
       
+        {selectedItem ?
+        <Button onPress={this.openEditModal} title={selectedItem.content.title} />
+        :
         <Button onPress={this.openEditModal} title={"Seleccionar Dirección"} />
+        }
 
         <Modal isVisible={editModal}
             onBackdropPress={this.exitEditModal}
@@ -293,9 +326,7 @@ class Location extends React.Component<any, any>{
                 // destructiveButtonIndex={1}
                 onPress={this.actionSheetItemOnPress}
               />
-
-              <Button onPress={this.addLocation} title={"Nueva"} />
-              <View style={{ height: 30 }} />
+              
               <Button onPress={this.exitEditModal} title={"Cancelar"} />
 
             </View>
