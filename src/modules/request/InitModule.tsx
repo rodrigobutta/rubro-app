@@ -11,7 +11,7 @@ import {
 
 import CommonStyles from "../../utils/CommonStyles";
 
-import MainMenuBurguer from "../../utils/MainMenuBurguer";
+import MainMenuBurguer from "../../modules/menu/MainMenuBurguer";
 
 
 export default class InitModule extends React.Component<any, any>{     

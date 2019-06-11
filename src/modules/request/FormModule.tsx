@@ -6,9 +6,11 @@ import {
   TextInput,
   ScrollView, 
   SafeAreaView,
-  Image, 
-  Button
+  ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
+
+import { Input, Button, Image  } from 'react-native-elements';
 
 import ActionSheet from 'react-native-actionsheet';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -20,21 +22,14 @@ import {bindActionCreators} from 'redux';
 import Spinner from "react-native-loading-spinner-overlay";
 
 import CommonStyles from "../../utils/CommonStyles";
-import * as RequestStateActions from './RequestState';
-
-
-import GooglePlacesAutocomplete from '../../components/places/GooglePlacesAutocomplete';
+import * as RequestStateReducer from '../../redux/reducers/RequestStateReducer';
 import Location from '../../components/places/Location';
-
-
-const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
-const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
-
 
 // let { height, width } = Dimensions.get('window');
 // let orientation = height > width ? 'Portrait' : 'Landscape';
 
-class FormModule extends React.Component<any, any>{     
+class FormModule extends React.Component<any, any>{   
+
   constructor() {
     super();
     this.state = {
@@ -43,17 +38,6 @@ class FormModule extends React.Component<any, any>{
       loc: ''
     };
   }
-
-
-  /// state value updated from child component map;
-  handler(arg) {
-    this.setState({
-      loc: arg
-    });
-    return;
-  }
-
-
 
   pickSingleWithCamera(cropping, mediaType='photo') {
     ImagePicker.openCamera({
@@ -81,7 +65,6 @@ class FormModule extends React.Component<any, any>{
 
     }).catch(e => alert(e));
   }
-
 
   pickMultiple() {
     ImagePicker.openPicker({
@@ -136,18 +119,30 @@ class FormModule extends React.Component<any, any>{
               borderWidth: 0,
               borderRadius: 5
             }}
-            resizeMode="cover"
+            resizeMode={'cover'}
+            PlaceholderContent={<ActivityIndicator />}
+            
             />
   }
 
   renderAsset(image) {
-    if (image.mime && image.mime.toLowerCase().indexOf('video/') !== -1) {
-      return this.renderVideo(image);
-    }
-
+    // if (image.mime && image.mime.toLowerCase().indexOf('video/') !== -1) {
+    //   return this.renderVideo(image);
+    // }
     return this.renderImage(image);
   }
 
+  removeMedia = (item) => {    
+    console.log('removeMedia',item)
+
+    // this.setState(
+    //   { 
+    //     currentItemId: item.id
+    //   },
+    //   () => this.ActionSheet.show()
+    // )
+
+  };
 
   showActionSheet = () => {    
     this.ActionSheet.show();
@@ -175,19 +170,6 @@ class FormModule extends React.Component<any, any>{
   };
 
 
-
-
-  componentWillMount() {
-
-    // TODO ojo que los reducers estos me estan metiendo cosas que no van, auth en request y demas. PERFORMANCE
-    // console.log(this.props.request)
-
-  }
-
-
-
-
-
   render() {
 
     var optionArray = [
@@ -209,84 +191,32 @@ class FormModule extends React.Component<any, any>{
         />
         
         <ScrollView style={CommonStyles.scrollView}>
-
           <View style={CommonStyles.page}>
 
             <Text style={{ fontSize: 22, marginBottom: 10 }}>
               Solicitar {category.name}
             </Text>
 
-            <TextInput
+            <Input
               multiline={false}
               onChangeText={(subject) => this.setState({subject})}
-              value={this.state.subject}
-              style={[CommonStyles.textInput]}
+              value={this.state.subject}              
+              placeholder='Asunto'           
+              style={CommonStyles.field}                      
             />
 
-            <TextInput
+            <Input
               multiline={true}
               numberOfLines={4}
               onChangeText={(description) => this.setState({description})}
-              value={this.state.description}
-              style={[CommonStyles.textArea, styles.textArea]}            
+              value={this.state.description}    
+              placeholder='Descripción'     
+              style={CommonStyles.field}
             />
 
-            <Location />
+            <View style={{ height: 30 }} />
 
-{/* 
-            <GooglePlacesAutocomplete
-              placeholder='Search'
-              minLength={2} // minimum length of text to search
-              autoFocus={false}
-              fetchDetails={true}
-              returnKeyType={"search"}
-              listViewDisplayed="false"
-              renderDescription={row =>
-                row.description || row.formatted_address || row.name
-              }
-              onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                console.log(data);
-                console.log(details);
-              }}
-              getDefaultValue={() => {
-                return ''; // text input default value
-              }}
-              query={{
-                // available options: https://developers.google.com/places/web-service/autocomplete
-                key: 'AIzaSyCwUBwK3A697kLrXT5FnFgbkCshtrpZTOo',
-                language: 'en', // language of the results
-                types: 'geocode', // default: 'geocode' ---- (cities)
-              }}
-              styles={{              
-                textInputContainer: {
-                  width: '100%'
-                },
-                description: {
-                  fontWeight: 'bold',
-                },
-                predefinedPlacesDescription: {
-                  color: '#1faadb',
-                },
-              }}
-              currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-              currentLocationLabel="Current location"
-              nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-              GoogleReverseGeocodingQuery={{
-                // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-              }}
-              GooglePlacesSearchQuery={{
-                // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-                rankby: 'distance',
-                // types: 'food',
-              }}
-              GooglePlacesDetailsQuery={{
-                  // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-                  fields: 'formatted_address',
-              }}
-              filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-              predefinedPlaces={[homePlace, workPlace]}
-              predefinedPlacesAlwaysVisible={true}
-            /> */}
+            <Location />
 
 
   {/* 
@@ -297,16 +227,27 @@ class FormModule extends React.Component<any, any>{
               {images ? images.map(i => <View key={i.uri}>{this.renderAsset(i)}</View>) : null}
             </ScrollView> */}
 
+
+
+            <View style={CommonStyles.field}>
+
             <FlatGrid
               itemDimension={150}
               items={images}
               style={styles.gridView}            
               renderItem={({ item, index }) => (
-                <View key={index} style={[styles.itemContainer]}>
+                <TouchableOpacity 
+                  key={index} 
+                  style={[styles.itemContainer]} 
+                  onLongPress={this.removeMedia.bind(this, item)}                  
+                  accessibilityRole="button"     
+                  >
                   {this.renderAsset(item)}
-                </View>
-              )}
+                </TouchableOpacity>
+              )}              
             />
+
+            </View>
             
             {/* <Button onPress={() => this.pickSingleWithCamera(false)} title={"Foto"} />
             <View style={{ height: 30 }} />
@@ -326,15 +267,11 @@ class FormModule extends React.Component<any, any>{
               // destructiveButtonIndex={1}
               onPress={this.actionSheetItemOnPress}
             />
-
-
             
           </View>
-
         </ScrollView>
 
       </SafeAreaView>
-
     );
   }
 
@@ -348,13 +285,10 @@ export default connect(
   }),
   dispatch => {
     return {
-      requestStateActions: bindActionCreators(RequestStateActions, dispatch)      
+      requestStateActions: bindActionCreators(RequestStateReducer, dispatch)      
     };
   }
 )(FormModule);
-
-
-
 
 
 const styles = StyleSheet.create({

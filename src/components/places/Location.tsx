@@ -7,9 +7,10 @@ import {
   ScrollView, 
   SafeAreaView,
   TouchableOpacity,
-  FlatList,
-  Button
+  FlatList  
 } from 'react-native';
+
+import { Button } from 'react-native-elements';
 
 import Modal from "react-native-modal";
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -22,7 +23,7 @@ import _ from 'lodash';
 import UUIDGenerator from 'react-native-uuid-generator';
 
 import CommonStyles from "../../utils/CommonStyles";
-import * as LocationStateActions from '../../redux/actions/LocationState';
+import * as LocationStateReducer from '../../redux/reducers/LocationStateReducer';
 import { GooglePlacesAutocomplete } from '../../components/places/GooglePlacesAutocomplete';
 
 const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
@@ -228,9 +229,9 @@ class Location extends React.Component<any, any>{
       <View>
       
         {selectedItem ?
-        <Button onPress={this.openEditModal} title={selectedItem.content.title} />
+        <Button raised={true} type='outline' onPress={this.openEditModal} title={selectedItem.content.title} />
         :
-        <Button onPress={this.openEditModal} title={"Seleccionar Dirección"} />
+        <Button raised={true} type='outline' onPress={this.openEditModal} title={"Seleccionar Dirección"} />
         }
 
         <Modal isVisible={editModal}
@@ -360,7 +361,7 @@ export default connect(
   }),
   dispatch => {
     return {
-      locationStateActions: bindActionCreators(LocationStateActions, dispatch)      
+      locationStateActions: bindActionCreators(LocationStateReducer, dispatch)      
     };
   }
 )(Location);

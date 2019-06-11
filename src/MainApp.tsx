@@ -5,13 +5,14 @@ import { GoogleSignin } from 'react-native-google-signin';
 import {Provider} from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import axios from 'axios';
+import { ThemeProvider } from 'react-native-elements';
 
-import LoginRouter from "./utils/LoginRouter";
-import MainRouter from "./utils/MainRouter";
+import LoginRouter from "./routes/LoginRouter";
+import MainRouter from "./routes/MainRouter";
 
 import {store, persistor} from './redux/store';
 import { API_URL } from './config/enviroment';
-import {setToken, setUser, resetToken, resetUser} from './redux/actions/AuthState';
+import {setToken, setUser, resetToken, resetUser} from './redux/reducers/AuthStateReducer';
 
 
 class MainApp extends React.Component {  
@@ -140,11 +141,11 @@ class MainApp extends React.Component {
   renderApp = () => (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <View style={{ flex: 1 }}>
-
-          {this.state.isLogin ? <MainRouter /> : <LoginRouter />}
-        
-        </View>
+        <ThemeProvider>
+          <View style={{ flex: 1 }}>
+            {this.state.isLogin ? <MainRouter /> : <LoginRouter />}          
+          </View>
+        </ThemeProvider>
       </PersistGate>
     </Provider>
   );

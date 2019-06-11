@@ -25,6 +25,10 @@ const CommonStyles = StyleSheet.create({
     color:Constants.colors.textColor,
     fontSize:16
   },
+  field: {
+    marginBottom: 20,
+    width: "90%"    
+  },
   textArea: {
     marginTop: 20,
     width: "90%",    
@@ -34,6 +38,13 @@ const CommonStyles = StyleSheet.create({
     paddingLeft: 10,
     color:Constants.colors.textColor,
     fontSize:16
+  },
+  area: {
+    marginTop: 20,
+    width: "90%",
+    borderColor: Constants.colors.borderColor,
+    borderWidth: 2,
+    borderRadius: 3,            
   },
   icon: {
     width: 24,
