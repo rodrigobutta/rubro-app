@@ -7,7 +7,8 @@ import { PersistGate } from 'redux-persist/integration/react'
 import axios from 'axios';
 
 import LoginRouter from "./utils/LoginRouter";
-import { MainRouter } from "./utils/router";
+import MainRouter from "./utils/MainRouter";
+
 import {store, persistor} from './redux/store';
 import { API_URL } from './config/enviroment';
 import {setToken, setUser, resetToken, resetUser} from './redux/actions/AuthState';

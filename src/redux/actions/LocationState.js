@@ -48,26 +48,6 @@ const UPDATE_LOCATION = 'LocationState/UPDATE_LOCATION';
 
 // }
 
-
-
-// export const addLocation = (item) => dispatch=>{
-  
-//   // return (dispatch, getState) => {
-
-//       dispatch({
-//         type: ADD_LOCATION,
-//         id: uuid,
-//         payload: {
-//           id: uuid,
-//           content: item
-//         }
-//       });
-
-//       return Promise.resolve()
-  
-//   }
-
-
 export function addLocation(uuid, item) {
   return {
     type: ADD_LOCATION,
@@ -79,15 +59,12 @@ export function addLocation(uuid, item) {
   };
 }
 
-
-
 export function removeLocation($id) {
   return {
     type: REMOVE_LOCATION,
     id: $id
   };
 }
-
 
 export function updateLocation($id,item) {
   

@@ -117,7 +117,7 @@ const RequestStack = createStackNavigator(
 // }
 
 
-const MainNavigation = createDrawerNavigator(
+export const MainNavigation = createDrawerNavigator(
   {
     Dashboard: {
       path: '/dashboard',
@@ -156,4 +156,4 @@ const MainNavigation = createDrawerNavigator(
 
 
 
-export const MainRouter = createAppContainer(MainNavigation);
+export default MainRouter = createAppContainer(MainNavigation);

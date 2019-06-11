@@ -38,7 +38,6 @@ class Location extends React.Component<any, any>{
     this.state = {     
       editModal: false,
       detailsModal: false,
-      currentItem: null,
       currentItemId: null,
       selectedItem: null,
       editedItem: null
@@ -54,12 +53,13 @@ class Location extends React.Component<any, any>{
     this.setState({ editModal: false })
   }
 
-  openDetailsModal = () => {  
+  openDetailsModal = (selectDirect = false) => {  
 
     const editedItem = this.props.location.byHash[this.state.currentItemId];
 
     this.setState(
       { 
+        selectDirect: selectDirect,
         editedItem: editedItem,
         detailsModal: true
       },
@@ -86,13 +86,18 @@ class Location extends React.Component<any, any>{
 
     this.props.locationStateActions.updateLocation(editedItem.id, editedItem.content);
 
-    // const {currentItem, currentItemId, door} = this.state;
-    // const item = currentItem
-    //       item.content.title = item.content.title + ' EDI';
-    //       item.content.door = door;
-    // this.props.locationStateActions.updateLocation(currentItemId, item.content);
-
     this.exitDetailsModal();
+
+    if(this.state.selectDirect){
+        
+      this.setState(
+        { 
+          selectDirect: false
+        },
+        () => this.selectItem(editedItem)
+      )
+
+    }
 
   }  
 
@@ -116,11 +121,10 @@ class Location extends React.Component<any, any>{
 
     this.setState(
       { 
-        currentItem: item,
         currentItemId: item.id
       },
       () => this.ActionSheet.show()
-     )
+    )
 
   };
 
@@ -130,21 +134,20 @@ class Location extends React.Component<any, any>{
     this.setState(
       { 
         selectedItem: item
-      }      
+      },
+      () => this.exitEditModal()
     )
-
-    this.exitEditModal();
-
+    
   };
 
 
   actionSheetItemOnPress = (index) => {    
 
-    const {currentItem} = this.state;
+    const {currentItemId} = this.state;
 
     switch (index) {
       case 0:
-        this.props.locationStateActions.removeLocation(currentItem.id);
+        this.props.locationStateActions.removeLocation(currentItemId);
         break;
 
       case 1:
@@ -160,11 +163,6 @@ class Location extends React.Component<any, any>{
 
   newAddressSelected = (place, geo, formattedName, details) => {    
     
-    console.log(place)
-    console.log(geo)
-    console.log(formattedName)
-    console.log(details)
-    
     const item = {
       title: place.structured_formatting.main_text,
       subtitle: place.structured_formatting.secondary_text,
@@ -176,36 +174,19 @@ class Location extends React.Component<any, any>{
         ...geo
       }      
     }
-
-    console.log(item)
-
-
-
-    // const newItem = this.props.locationStateActions.addLocation(item);
-
     
     UUIDGenerator.getRandomUUID().then((uuid) => {
-      console.log(uuid);
 
       this.props.locationStateActions.addLocation(uuid, item);
-
-        
-      // console.log('####################################################################');
-      // console.log(newItem);
 
       this.setState(
         { 
           currentItemId: uuid
-          // currentItemId: newItem.id
         },
-        () => this.openDetailsModal()
+        () => this.openDetailsModal(true)
       )
 
-      
-      
     });
-
-
 
   };
 
@@ -233,9 +214,9 @@ class Location extends React.Component<any, any>{
 
   render() {
 
-    const {byId,byHash} = this.props.location;
-    const {editModal, detailsModal, currentItem, currentItemId, editedItem, selectedItem} = this.state;
-    const editLocation = currentItemId ? this.props.location.byHash[currentItemId] : null;
+    const {byHash} = this.props.location;
+    const {editModal, detailsModal, editedItem, selectedItem} = this.state;
+    // const editLocation = currentItemId ? this.props.location.byHash[currentItemId] : null;
     
     var optionArray = [
       'Eliminar',
@@ -272,10 +253,7 @@ class Location extends React.Component<any, any>{
                 fetchDetails={true}
                 returnKeyType={"search"}
                 listViewDisplayed="false"                
-                onPress={(place, geo, formattedName, details) => this.newAddressSelected(place, geo, formattedName, details)}
-                getDefaultValue={() => {
-                  return ''; // text input default value
-                }}
+                onPress={(place, geo, formattedName, details) => this.newAddressSelected(place, geo, formattedName, details)}                
                 query={{
                   key: 'AIzaSyCwUBwK3A697kLrXT5FnFgbkCshtrpZTOo',
                   language: 'en', // language of the results
