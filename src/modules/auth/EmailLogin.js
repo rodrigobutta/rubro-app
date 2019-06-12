@@ -44,14 +44,18 @@ export default class EmailLogin extends Component {
   };
 
   _handleLogin = () => {
+
     const { loginEmail, loginPassword } = this.state;
+    
     if (this._validateLogin()) {
+    
       this.setState({ spinner: true });
+    
       firebase
         .auth()
         .signInWithEmailAndPassword(loginEmail, loginPassword)
         .then(firebaseUser => {
-          // console.log(firebaseUser)
+          console.log(firebaseUser)
           this.setState({ spinner: false });
         })
         .catch(error => {
@@ -64,6 +68,7 @@ export default class EmailLogin extends Component {
           console.log("====================================");
         });
     }
+
   };
 
   _validateLogin = () => {

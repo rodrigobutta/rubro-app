@@ -10,14 +10,14 @@ import {
   FlatList  
 } from 'react-native';
 
-import { Button } from 'react-native-elements';
+import {
+  Button,
+  Overlay 
+} from 'react-native-elements';
 
-import Modal from "react-native-modal";
 import Icon from 'react-native-vector-icons/Ionicons';
-import { FlatGrid, SectionGrid } from 'react-native-super-grid';
 import { connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Spinner from "react-native-loading-spinner-overlay";
 import ActionSheet from 'react-native-actionsheet';
 import _ from 'lodash';
 import UUIDGenerator from 'react-native-uuid-generator';
@@ -229,19 +229,14 @@ class Location extends React.Component<any, any>{
       <View>
       
         {selectedItem ?
-        <Button raised={true} type='outline' onPress={this.openEditModal} title={selectedItem.content.title} />
+        <Button raised={false} type='outline' onPress={this.openEditModal} title={selectedItem.content.title} />
         :
-        <Button raised={true} type='outline' onPress={this.openEditModal} title={"Seleccionar Dirección"} />
+        <Button raised={false} type='outline' onPress={this.openEditModal} title={"Seleccionar Dirección"} />
         }
 
-        <Modal isVisible={editModal}
+        <Overlay isVisible={editModal}
             onBackdropPress={this.exitEditModal}
-            animationIn="zoomInDown"
-            animationOut="zoomOutUp"
-            animationInTiming={600}
-            animationOutTiming={600}
-            backdropTransitionInTiming={600}
-            backdropTransitionOutTiming={600}
+         
         >
 
           <ScrollView style={CommonStyles.scrollView}>
@@ -310,18 +305,13 @@ class Location extends React.Component<any, any>{
 
             </View>
           </ScrollView>
-        </Modal>
+        </Overlay>
 
 
         {editedItem && detailsModal &&
-        <Modal isVisible={detailsModal}
-            // onBackdropPress={this.exitEditModal}
-            animationIn="zoomInDown"
-            animationOut="zoomOutUp"
-            animationInTiming={600}
-            animationOutTiming={600}
-            backdropTransitionInTiming={600}
-            backdropTransitionOutTiming={600}
+        <Overlay
+          isVisible={detailsModal}
+            // onBackdropPress={this.exitEditModal}            
         >
           <ScrollView style={CommonStyles.scrollView}>
             <View style={[styles.modalView]}>
@@ -343,7 +333,7 @@ class Location extends React.Component<any, any>{
 
             </View>
           </ScrollView>
-        </Modal>
+        </Overlay>
         }
 
         

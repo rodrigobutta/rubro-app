@@ -63,9 +63,16 @@ android {
             }
         }
     }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    
 }
 
 dependencies {
+    implementation project(':lottie-react-native')
     implementation project(':react-native-uuid-generator')
     implementation project(':react-native-image-crop-picker')
     implementation project(':react-native-blur')

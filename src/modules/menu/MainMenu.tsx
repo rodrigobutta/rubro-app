@@ -9,7 +9,7 @@ import {
 import { connect} from 'react-redux';
 import firebase from "react-native-firebase";
 import { LoginManager } from "react-native-fbsdk";
-import { GoogleSignin } from "react-native-google-signin";``
+import { GoogleSignin } from "react-native-google-signin";
 
 import MainMenuProfile from './MainMenuProfile'
 import MainMenuItem from './MainMenuItem'

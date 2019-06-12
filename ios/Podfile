@@ -25,4 +25,6 @@ target 'Rubro' do
 
   pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
 
+  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
 end

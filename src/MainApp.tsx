@@ -2,10 +2,12 @@ import React from "react";
 import { View, StatusBar, Text, Image } from "react-native";
 import firebase from "react-native-firebase";
 import { GoogleSignin } from 'react-native-google-signin';
+import { LoginManager } from "react-native-fbsdk";
 import {Provider} from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import axios from 'axios';
 import { ThemeProvider } from 'react-native-elements';
+
 
 import LoginRouter from "./routes/LoginRouter";
 import MainRouter from "./routes/MainRouter";
@@ -29,6 +31,9 @@ class MainApp extends React.Component {
     store.subscribe(() => { // When state will be updated when store changes      
       
       const state = store.getState(store);
+      // console.log('state.auth: ', state.auth);
+
+      
       const user = state.auth.user; 
 
       if(user){
@@ -47,8 +52,8 @@ class MainApp extends React.Component {
     console.log('_coreAuth')
         
     user.getIdToken().then(function(idToken) {  // <------ Check this line
-      console.log("app-js _coreAuth");
-      console.log(idToken)
+      // console.log("app-js _coreAuth");
+      // console.log(idToken)
 
       var data = {};
         data.token = idToken;
@@ -63,17 +68,35 @@ class MainApp extends React.Component {
       axios
       .post(API_URL + '/auth/firebase/login', data)
       .then(response => {
-        console.log(response);
+        // console.log(response);
                 
         store.dispatch(setToken(response.data.access_token, response.data.expires_at));
         store.dispatch(setUser(response.data.user));
 
         return true;
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+
+        console.log(error)
+
+        this._logout;
+
+      });
 
     });
 
+  };
+
+
+  _logout = async () => {
+    console.log('logout');
+
+    await LoginManager.logOut();
+    await GoogleSignin.signOut();
+    firebase
+      .auth()
+      .signOut()
+      .then();
   };
 
 

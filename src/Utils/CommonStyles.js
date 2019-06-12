@@ -8,6 +8,7 @@ const CommonStyles = StyleSheet.create({
   },
   page: {
     flex: 1,
+    width: "100%",
     alignItems: "center",
     justifyContent: "center"
   },

@@ -3,6 +3,7 @@ package com.rodrigobutta.rubro;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.lottie.LottiePackage;
 import io.github.traviskn.rnuuidgenerator.RNUUIDGeneratorPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.cmcewen.blurview.BlurViewPackage;
@@ -44,6 +45,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                 new MainReactPackage(),
+            new LottiePackage(),
             new RNUUIDGeneratorPackage(),
                 new PickerPackage(),
                 new BlurViewPackage(),

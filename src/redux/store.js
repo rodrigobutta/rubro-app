@@ -33,4 +33,7 @@ export const store = createStore(
   enhancer
 );
 
+
+// export const persistor = persistStore(store).purge();
+
 export const persistor = persistStore(store);

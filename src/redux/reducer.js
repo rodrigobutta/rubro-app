@@ -6,7 +6,7 @@
 // import { Provider, connect } from 'react-redux';
 
 import { combineReducers } from 'redux'
-import { persistReducer } from 'redux-persist';
+import { persistReducer, persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
 import AuthStateReducer from './reducers/AuthStateReducer';
@@ -22,6 +22,7 @@ const persistConfig = {
   // whitelist: [
   //   'token','expires'
   // ]
+  blacklist: ["ui", "router"]
 }
 
 // const navReducer = createNavigationReducer(MainNavigation);
@@ -34,8 +35,16 @@ const reducers = {
   location: persistReducer(persistConfig, LocationStateReducer),
 };
 
+
+// const reducers = {
+//   auth: persistConfig, AuthStateReducer,
+//   request: persistConfig, RequestStateReducer,
+//   location: persistConfig, LocationStateReducer
+// };
+
+// const persistCombinedReducers = persistCombineReducers(persistConfig, reducers);
+// export default persistCombinedReducers;
+
 export default combineReducers(
   reducers
-  // immutableStateContainer,
-  // setImmutable
 );
