@@ -11,9 +11,9 @@ import {
   SafeAreaView,
 } from 'react-navigation';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
+import { fromLeft, fromRight, zoomIn, zoomOut } from 'react-navigation-transitions';
 
 import MainMenuContents from "../modules/menu/MainMenu";
-
 import HomeModule from "../modules/home/Home";
 import ProfileModule from "../modules/profile/Profile";
 import EditProfileModule from "../modules/profile/Edit";
@@ -21,7 +21,7 @@ import AgendaModule from '../modules/agenda/agenda';
 import RequestInitModule from "../modules/request/InitModule";
 import RequestFormModule from "../modules/request/FormModule";
 import RequestViewModule from "../modules/request/ViewModule";
-
+import RequestsModule from "../modules/requests/RequestsModule";
 
 
 const SubScreenWrapper = ({
@@ -66,9 +66,10 @@ const ProfileStack = createStackNavigator(
   }
 );
 
+
 const DashboardStack = createStackNavigator(
   {
-    Dashboard: { screen: HomeModule },
+    HomeModule: { screen: HomeModule },
     Dashboard2: { screen: Dashboard2Screen },
   },
   {
@@ -81,8 +82,37 @@ const DashboardStack = createStackNavigator(
   }
 );
 
+
+const handleCustomTransition = ({ scenes }) => {
+  const prevScene = scenes[scenes.length - 2];
+  const nextScene = scenes[scenes.length - 1];
+
+  // Custom transitions go there
+  if (prevScene
+    && prevScene.route.routeName === 'RequestInitModule'
+    && nextScene.route.routeName === 'RequestFormModule') {
+    return zoomIn();
+  } else if (prevScene
+    && prevScene.route.routeName === 'RequestFormModule'
+    && nextScene.route.routeName === 'RequestInitModule') {
+    return zoomOut();
+  } else if (
+    // prevScene
+    // && prevScene.route.routeName === 'Dashboard'
+    // && 
+    nextScene.route.routeName === 'RequestInitModule') {
+    return zoomIn();
+  }
+
+  return fromRight();
+
+}
+
+
+
 const RequestStack = createStackNavigator(
   {
+    // HomeModule: { screen: HomeModule },
     RequestInitModule: { screen: RequestInitModule },
     RequestViewModule: { screen: RequestViewModule },
     RequestFormModule: { screen: RequestFormModule },
@@ -94,6 +124,25 @@ const RequestStack = createStackNavigator(
       ),
       drawerLabel: 'Pedidoddd'
     },
+    transitionConfig: (nav) => handleCustomTransition(nav)
+  }
+);
+
+
+
+
+const RequestsStack = createStackNavigator(
+  {
+    RequestsModule: { screen: RequestsModule }    
+  },
+  {
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => (
+        <Text>XX</Text>
+      ),
+      drawerLabel: 'Lista de pedidos'
+    },
+    transitionConfig: (nav) => handleCustomTransition(nav)
   }
 );
 
@@ -118,6 +167,7 @@ export const MainNavigation = createDrawerNavigator(
     Dashboard: {
       path: '/dashboard',
       screen: DashboardStack,
+      // screen: HomeModule,
     },
     Profile: {
       path: '/profile',
@@ -131,6 +181,10 @@ export const MainNavigation = createDrawerNavigator(
       path: '/agenda',
       screen: AgendaModule,
     },
+    Requests: {
+      path: '/requests',
+      screen: RequestsStack,
+    },    
   },
 
   {

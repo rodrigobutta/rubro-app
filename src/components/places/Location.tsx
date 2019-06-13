@@ -29,10 +29,6 @@ import { GooglePlacesAutocomplete } from '../../components/places/GooglePlacesAu
 const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
 const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
 
-
-// let { height, width } = Dimensions.get('window');
-// let orientation = height > width ? 'Portrait' : 'Landscape';
-
 class Location extends React.Component<any, any>{     
   constructor() {
     super();
@@ -65,7 +61,7 @@ class Location extends React.Component<any, any>{
         detailsModal: true
       },
       () => console.log('abro modal...')
-     )
+    )
 
   }
 
@@ -235,18 +231,24 @@ class Location extends React.Component<any, any>{
         }
 
         <Overlay isVisible={editModal}
-            onBackdropPress={this.exitEditModal}
-         
+            onBackdropPress={this.exitEditModal}         
         >
 
-          <ScrollView style={CommonStyles.scrollView}>
-            <View style={[styles.modalView]}>
+          <ScrollView 
+                style={CommonStyles.scrollView} 
+              >
+           
+              <FlatList
+                  style={stylesList.container}
+                  data={_.values(byHash)} 
+                  renderItem={this._renderItem}
+                  keyExtractor={(item) => item.id}                  
+              />
 
-              <GooglePlacesAutocomplete
-                placeholder='Escribir calle y altura..'
-                minLength={3} // minimum length of text to search
-                autoFocus={false}
-                fetchDetails={true}
+              <View style={{ height: 30 }} />              
+
+              <GooglePlacesAutocomplete                
+                minLength={3} // minimum length of text to search                                
                 returnKeyType={"search"}
                 listViewDisplayed="false"                
                 onPress={(place, geo, formattedName, details) => this.newAddressSelected(place, geo, formattedName, details)}                
@@ -273,23 +275,7 @@ class Location extends React.Component<any, any>{
                   rankby: 'distance',
                   // types: 'food',
                 }}
-                filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-                predefinedPlacesAlwaysVisible={false}
-              />
-
-            {/* {byId.map((item, index) => (
-              <React.Fragment key={index}>
-                <Text>{byHash[item].content.title}</Text>
-                <Button onPress={this.removeLocation.bind(this, item)} title={"Borrar"} />
-                <Button onPress={this.updateLocation.bind(this, item)} title={"Modificar"} />
-              </React.Fragment>
-            ))} */}
-              
-              <FlatList
-                  style={stylesList.container}
-                  data={_.values(byHash)} 
-                  renderItem={this._renderItem}
-                  keyExtractor={(item) => item.id}                  
+                filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities                
               />
 
               <ActionSheet
@@ -301,9 +287,8 @@ class Location extends React.Component<any, any>{
                 onPress={this.actionSheetItemOnPress}
               />
               
-              <Button onPress={this.exitEditModal} title={"Cancelar"} />
+              {/* <Button onPress={this.exitEditModal} title={"Cancelar"} /> */}
 
-            </View>
           </ScrollView>
         </Overlay>
 
@@ -357,8 +342,6 @@ export default connect(
 )(Location);
 
 
-
-
 const styles = StyleSheet.create({
   modalView: {    
     paddingTop: 15,
@@ -368,7 +351,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff'
   }
 });
-
 
 const stylesList = StyleSheet.create({
   container: {
@@ -417,4 +399,3 @@ const stylesList = StyleSheet.create({
     fontSize: 16
   }
 });
-

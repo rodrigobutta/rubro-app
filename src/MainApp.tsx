@@ -165,9 +165,9 @@ class MainApp extends React.Component {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider>
-          <View style={{ flex: 1 }}>
+          {/* <View style={{ flex: 1 }}> */}
             {this.state.isLogin ? <MainRouter /> : <LoginRouter />}          
-          </View>
+          {/* </View> */}
         </ThemeProvider>
       </PersistGate>
     </Provider>

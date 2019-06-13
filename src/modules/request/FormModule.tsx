@@ -15,11 +15,11 @@ import {
 import { 
 	Input, 
 	Button, 
-	Image
+	Image,
+	Overlay
 } from 'react-native-elements';
 
 import LottieView from 'lottie-react-native';
-
 import ActionSheet from 'react-native-actionsheet';
 import ImagePicker from 'react-native-image-crop-picker';
 import Video from 'react-native-video';
@@ -31,6 +31,7 @@ import CommonStyles from "../../utils/CommonStyles";
 import * as RequestStateReducer from '../../redux/reducers/RequestStateReducer';
 import Location from '../../components/places/Location';
 import FullWidthImage  from '../../components/image/FullWidthImage';
+import Process  from '../../components/Process/Process';
 
 // let { height, width } = Dimensions.get('window');
 // let orientation = height > width ? 'Portrait' : 'Landscape';
@@ -50,7 +51,9 @@ class FormModule extends React.Component {
 			currentMedia: null,
 			subject: '',
 			description: '',
-			name: ''
+			name: '',
+			responseModal: false,
+			responseModalStatus: 'process'
 		};
 
 		// this.deviceLocale = "ptBR";
@@ -88,9 +91,38 @@ class FormModule extends React.Component {
 
 
 
-	_onSendButton() {
+	_onSendButton = () => {    
+
+		this.setState({ 
+			responseModal: true
+		},() => {
+
+			
+			// setTimeout(() => {
+
+			// 	this.setState({responseModalStatus: 'success'});
+		  
+			// }, 4000);
+
+
+		})
 	
 	}
+
+	
+	
+	goToRequestView = () => {    
+		
+		// this.setState(
+		// 	{ 
+		// 		responseModal: false
+		// 	}
+		// )
+
+		this.setState({responseModalStatus: 'success'});
+
+	};
+
 
 
 	pickSingleWithCamera(cropping, mediaType='photo') {
@@ -248,6 +280,7 @@ class FormModule extends React.Component {
 
 
 
+
 	render() {
 
 		var optionArray = [
@@ -350,7 +383,7 @@ class FormModule extends React.Component {
 
 						<View style={{ height: 30 }} />
 
-						<LottieView source={require('../../../assets/icons/success.json')} autoPlay loop />
+						
 
 						<Button
 							onPress={this._onSendButton}
@@ -360,6 +393,15 @@ class FormModule extends React.Component {
 					</View>
 				</ScrollView>
 
+
+				<Process 
+					visible={this.state.responseModal} 
+					status={this.state.responseModalStatus} 
+					cta={<Button onPress={this.goToRequestView} title={"Ver mi solicitud"} />}
+				/>
+				
+						
+				
 			</SafeAreaView>
 		);
 	}
@@ -387,6 +429,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		backgroundColor: '#880088',	
+	},
+	modalView: {    
+		paddingTop: 20,
+		paddingLeft: 15,
+		paddingRight: 15,
+		paddingBottom: 50,
+		backgroundColor: '#2ecc71',
+		alignItems: 'center', // cross axis
 	}
 });
 

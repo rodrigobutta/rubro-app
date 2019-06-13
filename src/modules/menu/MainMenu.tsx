@@ -20,7 +20,7 @@ const menuData = [
     {icon: "ios-person", label:"Perfil", screen: 'Profile', key:'menu_profile'},  
     {icon: "ios-megaphone", label:"Pedidos", screen: 'Request', key:'menu_request'},  
     {icon: "ios-happy", label:"Test", screen: 'Agenda', key:'menu_test'},  
-    
+    {icon: "ios-happy", label:"Pedidos", screen: 'Requests', key:'menu_requests'},  
   ]
   
 

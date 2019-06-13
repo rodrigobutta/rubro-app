@@ -10,7 +10,6 @@ import {
 } from "react-native";
 
 import CommonStyles from "../../utils/CommonStyles";
-
 import MainMenuBurguer from "../../modules/menu/MainMenuBurguer";
 
 
