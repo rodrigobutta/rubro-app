@@ -10,7 +10,7 @@ import {
 	Overlay
 } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import LottieView from 'lottie-react-native';
+// import LottieView from 'lottie-react-native';
 
 import CommonStyles from "../../utils/CommonStyles";
 
@@ -79,7 +79,7 @@ export default class Process extends React.Component {
 				
 						<View style={{ height: 100 }} />
 				
-						{status==STATUS_PROCESS&&
+						{/* {status==STATUS_PROCESS&&
 						<LottieView
 							source={require('../../../assets/icons/status_process.json')}
 							ref={animation => {this.processAnimation = animation;}}
@@ -103,7 +103,7 @@ export default class Process extends React.Component {
 							ref={animation => {this.errorAnimation = animation;}}
 							loop={true}						
 							style={{ height: 200, width: 200 }}
-						/>}
+						/>} */}
 
 						<View style={{ height: 100 }} />
 				

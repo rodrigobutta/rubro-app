@@ -19,7 +19,6 @@ import {
 	Overlay
 } from 'react-native-elements';
 
-import LottieView from 'lottie-react-native';
 import ActionSheet from 'react-native-actionsheet';
 import ImagePicker from 'react-native-image-crop-picker';
 import Video from 'react-native-video';

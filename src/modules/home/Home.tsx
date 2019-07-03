@@ -10,14 +10,19 @@ import {
 } from "react-native";
 import { connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {NavigationActions} from 'react-navigation';
+import axios from 'axios';
+
+import {store, persistor} from '../../redux/store';
+import { API_URL } from '../../config/enviroment';
+// import {setCategory, setCategories} from '../../redux/reducers/RequestStateReducer';
+import * as RequestStateActions from '../../redux/reducers/RequestStateReducer';
+
 
 import CommonStyles from "../../utils/CommonStyles";
 import MainMenuBurguer from "../../modules/menu/MainMenuBurguer";
 // import { navigationOption/utils/CommonStyles";
 import Autocomplete from '../../components/autocomplete/Autocomplete';
 import { SectionGrid } from 'react-native-super-grid';
-import * as RequestStateActions from '../../redux/reducers/RequestStateReducer';
 
 class Home extends React.Component<any, any>{    
   static navigationOptions = ({ navigation }) => {
@@ -59,143 +64,175 @@ class Home extends React.Component<any, any>{
 
   }
 
-  componentWillMount() {
 
-    const categories = [
-      {
-        id: 1,
-        name: 'plomeria',
-        type: 1,
-        color: '#1abc9c'
-      },
-      {
-        id: 2,
-        name: 'cerrajeria',
-        type: 1,
-        color: '#2ecc71'
-      },
-      {
-        id: 3,
-        name: 'pintura',
-        type: 1,
-        color: '#3498db'
-      },
-      {
-        id: 4,
-        name: 'albañilería',
-        type: 1,
-        color: '#9b59b6'
-      },
-      {
-        id: 5,
-        name: 'carpintería',
-        type: 1,
-        color: '#8e44ad'
-      },
-      {
-        id: 6,
-        name: 'electricidad e iluminación',
-        type: 1,
-        color: '#16a085'
-      },
-      {
-        id: 7,
-        name: 'cambio de cerradura',
-        type: 2,
-        color: '#2c3e50'
-      },
-      {
-        id: 8,
-        name: 'colocación de ventana',
-        type: 2,
-        color: '#e74c3c'
-      },
-      {
-        id: 9,
-        name: 'colocación de puerta',
-        type: 2,
-        color: '#ecf0f1'
-      },
-      {
-        id: 10,
-        name: 'colocación de artefacto de luz',
-        type: 2,
-        color: '#95a5a6'
-      },
-      {
-        id: 11,
-        name: 'destapar sanitario',
-        type: 2,
-        color: '#f39c12'
-      },
-      {
-        id: 12,
-        name: 'colocación de grifería',
-        type: 2,
-        color: '#d35400'
-      },
-      {
-        id: 13,
-        name: 'humedad',
-        type: 2,
-        color: '#bdc3c7'
-      },
-      {
-        id: 14,
-        name: 'cerramientos',
-        type: 1,
-        color: '#7f8c8d'
-      },
-      {
-        id: 15,
-        name: 'cambio de lamparita',
-        type: 1,
-        color: '#7f8c8d'
-      },
-      {
-        id: 16,
-        name: 'cambio de bateria',
-        type: 1,
-        color: '#7f8c8d'
-      },
-      {
-        id: 17,
-        name: 'auxilio mecánico',
-        type: 1,
-        color: '#7f8c8d'
-      },    
-      {
-        id: 18,
-        name: 'gomería',
-        type: 1,
-        color: '#7f8c8d'
-      },
-      {
-        id: 19,
-        name: 'instalación de office',
-        type: 1,
-        color: '#7f8c8d'
-      },
-      {
-        id: 20,
-        name: 'reparación de pc',
-        type: 1,
-        color: '#7f8c8d'
-      },
-      {
-        id: 21,
-        name: 'paquete adobe',
-        type: 1,
-        color: '#7f8c8d'
-      },
-      {
-        id: 22,
-        name: 'gasista matriculado',
-        type: 1,
-        color: '#7f8c8d'
-      }
-    ]
-    this.setState({ categories });
+  componentDidMount() {
+
+
+    // TODO hacer algun request con refresh needs
+
+    var data = {};
+        data.parentId = 1;
+
+    axios
+    .post(API_URL + '/folder/list', data)
+    .then(response => {
+      
+      console.log(response.data.data);
+              
+      this.props.requestStateActions.setCategories(response.data.data);
+      
+      return true;
+    })
+    .catch(error => {
+
+      console.log(error)
+
+      this._logout;
+
+    });
+
+
+
+    // const categories = [
+    //   {
+    //     id: 1,
+    //     name: 'plomeria',
+    //     type: 1,
+    //     color: '#1abc9c'
+    //   },
+    //   {
+    //     id: 2,
+    //     name: 'cerrajeria',
+    //     type: 1,
+    //     color: '#2ecc71'
+    //   },
+    //   {
+    //     id: 3,
+    //     name: 'pintura',
+    //     type: 1,
+    //     color: '#3498db'
+    //   },
+    //   {
+    //     id: 4,
+    //     name: 'albañilería',
+    //     type: 1,
+    //     color: '#9b59b6'
+    //   },
+    //   {
+    //     id: 5,
+    //     name: 'carpintería',
+    //     type: 1,
+    //     color: '#8e44ad'
+    //   },
+    //   {
+    //     id: 6,
+    //     name: 'electricidad e iluminación',
+    //     type: 1,
+    //     color: '#16a085'
+    //   },
+    //   {
+    //     id: 7,
+    //     name: 'cambio de cerradura',
+    //     type: 2,
+    //     color: '#2c3e50'
+    //   },
+    //   {
+    //     id: 8,
+    //     name: 'colocación de ventana',
+    //     type: 2,
+    //     color: '#e74c3c'
+    //   },
+    //   {
+    //     id: 9,
+    //     name: 'colocación de puerta',
+    //     type: 2,
+    //     color: '#ecf0f1'
+    //   },
+    //   {
+    //     id: 10,
+    //     name: 'colocación de artefacto de luz',
+    //     type: 2,
+    //     color: '#95a5a6'
+    //   },
+    //   {
+    //     id: 11,
+    //     name: 'destapar sanitario',
+    //     type: 2,
+    //     color: '#f39c12'
+    //   },
+    //   {
+    //     id: 12,
+    //     name: 'colocación de grifería',
+    //     type: 2,
+    //     color: '#d35400'
+    //   },
+    //   {
+    //     id: 13,
+    //     name: 'humedad',
+    //     type: 2,
+    //     color: '#bdc3c7'
+    //   },
+    //   {
+    //     id: 14,
+    //     name: 'cerramientos',
+    //     type: 1,
+    //     color: '#7f8c8d'
+    //   },
+    //   {
+    //     id: 15,
+    //     name: 'cambio de lamparita',
+    //     type: 1,
+    //     color: '#7f8c8d'
+    //   },
+    //   {
+    //     id: 16,
+    //     name: 'cambio de bateria',
+    //     type: 1,
+    //     color: '#7f8c8d'
+    //   },
+    //   {
+    //     id: 17,
+    //     name: 'auxilio mecánico',
+    //     type: 1,
+    //     color: '#7f8c8d'
+    //   },    
+    //   {
+    //     id: 18,
+    //     name: 'gomería',
+    //     type: 1,
+    //     color: '#7f8c8d'
+    //   },
+    //   {
+    //     id: 19,
+    //     name: 'instalación de office',
+    //     type: 1,
+    //     color: '#7f8c8d'
+    //   },
+    //   {
+    //     id: 20,
+    //     name: 'reparación de pc',
+    //     type: 1,
+    //     color: '#7f8c8d'
+    //   },
+    //   {
+    //     id: 21,
+    //     name: 'paquete adobe',
+    //     type: 1,
+    //     color: '#7f8c8d'
+    //   },
+    //   {
+    //     id: 22,
+    //     name: 'gasista matriculado',
+    //     type: 1,
+    //     color: '#7f8c8d'
+    //   }
+    // ]
+    // this.setState({ categories });
+
+
+    const { categories } = this.props.request;
+
+    console.log(categories);
 
     const suggested = [
       {
@@ -220,7 +257,11 @@ class Home extends React.Component<any, any>{
     // const { currentUser } = firebase.auth();
     const { user } = this.props.auth;
 
-    const { categories, suggested } = this.state;
+    
+
+    const { suggested } = this.state;
+
+    const { categories } = this.props.request;
 
     return (
       <SafeAreaView style={CommonStyles.safeAreaContainer}>

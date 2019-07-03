@@ -19,12 +19,10 @@ target 'Rubro' do
   pod 'GoogleSignIn', '4.4.0'
   pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
 
-  pod 'react-native-blur', :path => '../node_modules/react-native-blur'
-
+  
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
   pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
 
-  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
-
+  
 end

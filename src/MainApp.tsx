@@ -16,6 +16,28 @@ import {store, persistor} from './redux/store';
 import { API_URL } from './config/enviroment';
 import {setToken, setUser, resetToken, resetUser} from './redux/reducers/AuthStateReducer';
 
+import Pusher from 'pusher-js/react-native';
+
+
+// PUSHER
+
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('337ed7b75cb40c3bc159', {
+  cluster: 'us2',
+  forceTLS: true
+});
+
+var channel = pusher.subscribe('my-channel');
+channel.bind('my-event', function(data) {
+  alert(JSON.stringify(data));
+});
+
+// FINPUSHER
+
+
+
 
 class MainApp extends React.Component {  
   constructor(props) {
