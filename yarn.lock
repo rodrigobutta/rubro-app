@@ -5365,6 +5365,11 @@ react-native-platform-touchable@^1.1.1:
   resolved "https://registry.yarnpkg.com/react-native-platform-touchable/-/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
   integrity sha1-/eSsxl7qWF0osWTQw3FqQhKaaOQ=
 
+react-native-pusher-push-notifications@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-pusher-push-notifications/-/react-native-pusher-push-notifications-2.1.0.tgz#2b24b02273116306234eee6a0c79779895dde985"
+  integrity sha512-MsGVArGg+O7Bkc4bVDBKTrnIJnMHSgqFDFPVKnPiyzvhIH9FlYlx4C9b0wqlX+4cgeaSkJ1SWpzWcnCpdv7dfA==
+
 react-native-ratings@^6.3.0:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-6.3.1.tgz#4e4bd87f376423dc62c933f570fc1932c78adaa4"

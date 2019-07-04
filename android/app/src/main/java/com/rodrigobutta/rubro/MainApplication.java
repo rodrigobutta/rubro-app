@@ -27,6 +27,11 @@ import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
 
+// import com.pusher.pushnotifications.PushNotifications;
+
+import com.b8ne.RNPusherPushNotifications.RNPusherPushNotificationsPackage;
+
+
 public class MainApplication extends Application implements ReactApplication {
 
     private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
@@ -45,8 +50,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                 new MainReactPackage(),
-            new LottiePackage(),
-            new RNUUIDGeneratorPackage(),
+                new LottiePackage(),
+                new RNUUIDGeneratorPackage(),
                 new PickerPackage(),
                 new BlurViewPackage(),
                 new RNGoogleSigninPackage(),
@@ -54,7 +59,8 @@ public class MainApplication extends Application implements ReactApplication {
                 new FBSDKPackage(mCallbackManager),
                 new RNFirebasePackage(),
                 new RNGestureHandlerPackage(),
-                new RNFirebaseAuthPackage() 
+                new RNFirebaseAuthPackage() ,
+                new RNPusherPushNotificationsPackage()
             );
         }
 
@@ -76,5 +82,9 @@ public class MainApplication extends Application implements ReactApplication {
         FacebookSdk.setApplicationId("2342131725810594");
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+
+        // PushNotifications.start(getApplicationContext(), "063823b2-17a8-4234-8ba8-92cd22f58b40");
+        // PushNotifications.addDeviceInterest("hello");
+
     }
 }

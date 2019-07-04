@@ -73,6 +73,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-pusher-push-notifications')
     implementation project(':lottie-react-native')
     implementation project(':react-native-uuid-generator')
     implementation project(':react-native-image-crop-picker')
@@ -96,8 +97,8 @@ dependencies {
     implementation "com.google.android.gms:play-services-base:16.0.1"
     implementation "com.google.firebase:firebase-core:16.0.6"
     implementation "com.google.firebase:firebase-auth:16.1.0"
-    implementation 'com.google.firebase:firebase-messaging:17.0.0'
-    implementation 'com.pusher:push-notifications-android:1.4.3'
+    implementation 'com.google.firebase:firebase-messaging:17.5.0'
+    implementation 'com.pusher:push-notifications-android:1.4.3'    
 
 }
 
