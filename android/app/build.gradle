@@ -34,7 +34,7 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
-        
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -88,9 +88,17 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     // Firebase dependencies
+    // implementation "com.google.android.gms:play-services-base:16.0.1"
+    // implementation "com.google.firebase:firebase-core:16.0.9"
+    // implementation "com.google.firebase:firebase-auth:16.1.0"
+    // implementation 'com.google.firebase:firebase-messaging:18.0.0'
+    // implementation 'com.pusher:push-notifications-android:1.4.3'
     implementation "com.google.android.gms:play-services-base:16.0.1"
     implementation "com.google.firebase:firebase-core:16.0.6"
     implementation "com.google.firebase:firebase-auth:16.1.0"
+    implementation 'com.google.firebase:firebase-messaging:17.0.0'
+    implementation 'com.pusher:push-notifications-android:1.4.3'
+
 }
 
 // Run this once to be able to run the application with BUCK
