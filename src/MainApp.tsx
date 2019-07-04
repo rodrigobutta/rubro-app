@@ -21,9 +21,6 @@ import Pusher from 'pusher-js/react-native';
 // Import module
 import RNPusherPushNotifications from 'react-native-pusher-push-notifications';
 
-// Get your interest
-const donutsInterest = 'hello';
-
 
 // PUSHER
 
@@ -54,7 +51,7 @@ export const init = () => {
 
   // Init interests after registration
   RNPusherPushNotifications.on('registered', () => {
-    subscribe(donutsInterest);
+    subscribe("hello");
   });
 
   // Setup notification listeners
@@ -78,6 +75,8 @@ const handleNotification = notification => {
       //             You can fetch required data here don't do anything with UI
       case 'active':
       // App is foreground and notification is received. Show a alert or something.
+
+
       default:
         break;
     }
@@ -124,13 +123,18 @@ const unsubscribe = interest => {
 
 
 class MainApp extends React.Component {  
+
   constructor(props) {
     super(props);
+
+    this._isMounted = false;
 
     this.state = {
       isLogin: null,
       isLoaded: false
     };
+
+  
 
     StatusBar.setBarStyle("light-content", true); // Set Statusbar Light Content for iOS
 
@@ -142,16 +146,32 @@ class MainApp extends React.Component {
       
       const user = state.auth.user; 
 
-      if(user){
-        this.setState({ isLogin: true });
+      if(this._isMounted){
+        
+        if(user){
+          this.setState({ isLogin: true });
+        }
+        else{
+          this.setState({ isLogin: false });
+        }
+
       }
-      else{
-        this.setState({ isLogin: false });
-      }
+      
   
     });
 
   }
+
+
+
+  componentDidMount() {
+    this._isMounted = true;      
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
 
 
   _coreAuth = (user) => {
@@ -175,7 +195,7 @@ class MainApp extends React.Component {
       .post(API_URL + '/auth/firebase/login', data)
       .then(response => {
         // console.log(response);
-                
+          
         store.dispatch(setToken(response.data.access_token, response.data.expires_at));
         store.dispatch(setUser(response.data.user));
 
@@ -246,13 +266,13 @@ class MainApp extends React.Component {
     // });
     // this.setState({ isLoaded: true });
 
-    setTimeout(() => {
+    // setTimeout(() => {
 
       this.setState({
         isLoaded: true
       });
 
-    }, 1000);
+    // }, 1000);
 
   };
 
